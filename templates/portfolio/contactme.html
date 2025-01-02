@@ -1,0 +1,94 @@
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="section-title">
+      <h2>Contacts</h2>
+      <p>Contactez-moi</p>
+    </div>
+    {% for personal_info in personal %}
+    <div class="row mt-2">
+      <div class="col-md-6 d-flex align-items-stretch">
+        <div class="info-box">
+          <i class="fa-solid fa-earth-asia"></i>
+          <div class="info">
+            <h3>Mon Adresse</h3>
+            <p>{{ personal_info.location }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mt-4 mt-md-0 d-flex align-items-stretch">
+        <div class="info-box">
+          <i class="fa-solid fa-heart"></i>
+          <div class="info">
+            <h3>Réseaux Sociaux</h3>
+            <div class="social-links">
+              <a
+                href="{{ personal_info.github }}"
+                class="facebook"
+                target="_blank"
+                ><i class="fa-brands fa-github"></i
+              ></a>
+              <a
+                href="{{ personal_info.linkedin }}"
+                class="linkedin"
+                target="_blank"
+                ><i class="fa-brands fa-linkedin"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mt-4 d-flex align-items-stretch">
+        <div class="info-box">
+          <i class="fa-regular fa-envelope"></i>
+          <div class="info">
+            <h3>Adresse mail</h3>
+            <p>{{ personal_info.email }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      <div class="col-md-6 mt-4 d-flex align-items-stretch">
+        <div class="info-box">
+          <i class="fa-solid fa-comment"></i>
+          <div class="info">
+            <h3>Restez en contact</h3>
+            <p>
+              Restez connecté avec moi sur les réseaux sociaux pour les dernières
+              mises à jour.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form id="contactme_form" method="post" action="{% url 'home' %}" class="php-email-form mt-4">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-md-6 form-group">
+          {{ contact_form.your_name }}
+        </div>
+        <div class="col-md-6 form-group mt-3 mt-md-0">
+          {{ contact_form.your_email }}
+        </div>
+      </div>
+      <div class="form-group mt-3">
+        {{ contact_form.subject }}
+      </div>
+      <div class="form-group mt-3">
+        {{ contact_form.message }}
+      </div>
+      <div class="my-3">
+        <div class="loading">Chargement</div>
+        <div class="error-message"></div>
+          <div class="sent-message">
+               Votre message a bien été envoyer. Merci à vous!
+          </div>
+      </div>
+      <div class="form-group mt-3 captcha-field">
+        {{ contact_form.captcha }}
+      </div>
+      <div class="text-center">
+        <button type="submit" id="recaptcha-submit" class="submit-button" disabled>Envoyer le Message?</button>
+      </div>
+    </form>
+  </div>
+</section>

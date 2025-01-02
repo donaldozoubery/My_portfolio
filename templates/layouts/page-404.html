@@ -1,0 +1,13 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+<header id="header" style="opacity: 1;justify-content:center">
+  <div class="showcontent">
+    <h1>Page Non Trouvée</h1>
+    <br>
+    <p>La page demandée n'a pas pu être trouvée.</p>
+    <a class="go-back" href="{% url 'home' %}">
+      Retour à l'accueil
+    </a>
+  </div>
+</header>
+{% endblock content %}
