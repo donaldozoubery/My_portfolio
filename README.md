@@ -9,7 +9,7 @@
 
 
 ## Introduction
-🚀 Welcome to my Django-powered portfolio on GitHub! Explore various aspects of my professional journey through the **Home, About, Portfolio**, and **Contact Us** sections. This project not only showcases my skills in Django development but also demonstrates successful deployment using **Render** (SaaS). Moreover, static files are efficiently managed through **Cloudinary**, ensuring a seamless and responsive user experience. Discover a thoughtfully curated collection of my projects, delve into my background with a responsive digital CV, and with the custom 404 page. This space encapsulates my creativity and dedication, illustrating how technology and passion intersect in my work. Feel free to navigate and connect—I'm thrilled to share my journey with you! 👋
+🚀 Bienvenue dans mon portfolio Django sur GitHub ! Explorez les différents aspects de mon parcours professionnel à travers les sections **Accueil, À propos, Portfolio** et **Nous contacter**. Ce projet met non seulement en valeur mes compétences en développement Django, mais démontre également un déploiement réussi à l'aide de **Render** (SaaS). De plus, les fichiers statiques sont gérés efficacement via **Cloudinary**, garantissant une expérience utilisateur fluide et réactive. Découvrez une collection soigneusement organisée de mes projets, plongez dans mon parcours avec un CV numérique réactif et avec la page 404 personnalisée. Cet espace résume ma créativité et mon dévouement, illustrant comment la technologie et la passion se croisent dans mon travail. N'hésitez pas à naviguer et à vous connecter : je suis ravi de partager mon parcours avec vous ! 👋
 
 ![Home Page_1](</Website Screenshots/main_home.png>)
 ![Home Page_2](</Website Screenshots/main_home_mobile.png>)
