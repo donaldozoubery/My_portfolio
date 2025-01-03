@@ -224,6 +224,6 @@ Here is the guide <a href="https://youtu.be/AgTr5mw4zdI?t=929&si=siE8yPqA5ilPcKP
 This project is licensed under the [MIT License](LICENSE).
 
 ## Author
- - GitHub - [git-adrianrubico](https://github.com/git-adrianrubico)
- - LinkedIn - [Adrian Rubico]([git-adrianrubico](www.linkedin.com/in/adrianrubico))
+ - GitHub - [donaldo zoubery](https://github.com/donaldozoubery)
+ - LinkedIn - [Donaldo ZOUBERY]([git-adrianrubico](www.linkedin.com/in/donaldozoubery))
 
