@@ -95,4 +95,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </form>
   </div>
+  <script src="https://www.google.com/recaptcha/api.js?render={{ RECAPTCHA_PUBLIC_KEY }}"></script>
+<script>
+    grecaptcha.ready(function() {
+        grecaptcha.execute("{{ RECAPTCHA_PUBLIC_KEY }}", { action: 'submit' }).then(function(token) {
+            var recaptchaResponse = document.createElement('input');
+            recaptchaResponse.name = 'g-recaptcha-response';
+            recaptchaResponse.type = 'hidden';
+            recaptchaResponse.value = token;
+            document.forms[0].appendChild(recaptchaResponse);
+        });
+    });
+</script>
 </section>
