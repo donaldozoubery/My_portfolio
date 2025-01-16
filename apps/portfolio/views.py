@@ -7,7 +7,11 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from operator import attrgetter
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden
+from django.conf import settings
+import requests
+
+
 
 class HomePageView(TemplateView):
     template_name = 'portfolio/portfolio_main.html'
@@ -25,6 +29,17 @@ class HomePageView(TemplateView):
     def post(self, request, *args, **kwargs):
         form = ContactForm(request.POST)
         if form.is_valid():
+            recaptcha_token = form.cleaned_data.get('captcha')
+            
+            # Vérifiez le token côté serveur en envoyant une requête à Google reCAPTCHA
+            response = requests.post('https://www.google.com/recaptcha/api/siteverify', data={
+                'secret': settings.RECAPTCHA_PRIVATE_KEY,
+                'response': recaptcha_token
+            })
+            result = response.json()
+            if not result.get('success'):
+                return HttpResponseForbidden("reCAPTCHA validation failed.")
+      
             your_name = form.cleaned_data['your_name']
             your_email = form.cleaned_data['your_email']
             subject = form.cleaned_data['subject']
@@ -38,7 +53,7 @@ class HomePageView(TemplateView):
                 subject,
                 email_body,
                 your_email,
-                ['rubico.adrian@gmail.com'],
+                ['dzoubery@gmail.com'],
                 fail_silently=False,
             )
             # Set message_sent to True
