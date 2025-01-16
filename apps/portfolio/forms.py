@@ -1,5 +1,6 @@
 from django import forms
-from django_recaptcha.fields import ReCaptchaField, ReCaptchaV2Checkbox
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV3
 
 class ContactForm(forms.Form):
     your_name = forms.CharField(label='Your Name', 
@@ -44,9 +45,9 @@ class ContactForm(forms.Form):
                                 'rows' : '5',}),
                               required=True)
     captcha = ReCaptchaField(
-        widget=ReCaptchaV2Checkbox(
+        widget=ReCaptchaV3(
             attrs={
-                'data-callback': 'enableFormSubmit',
+                'data-action': 'submit',
             }
         )
     )
