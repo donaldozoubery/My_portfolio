@@ -38,7 +38,7 @@ class HomePageView(TemplateView):
                 subject,
                 email_body,
                 your_email,
-                ['dzoubery@gmail.com'],
+                ['dzoubery@icloud.com'],
                 fail_silently=False,
             )
             # Set message_sent to True
