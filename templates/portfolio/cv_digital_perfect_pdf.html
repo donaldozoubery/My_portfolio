@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - ZOUBERY Jaotiana Donaldo</title>
+    <style>
+        /* Reset et base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            line-height: 1.4;
+            color: #333;
+            background: white;
+        }
+        
+        /* Page A4 */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        
+        .page {
+            width: 210mm;
+            height: 297mm;
+            margin: 0;
+            padding: 0;
+            background: white;
+            display: flex;
+            overflow: hidden;
+        }
+        
+        /* Colonnes */
+        .left-column {
+            width: 35%;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .right-column {
+            width: 65%;
+            background: white;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header avec nom */
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #ecf0f1;
+        }
+        
+        .title {
+            font-size: 14px;
+            color: #bdc3c7;
+            font-weight: 500;
+        }
+        
+        /* Contact */
+        .contact {
+            margin-bottom: 25px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 11px;
+        }
+        
+        .contact-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        /* Réseaux sociaux */
+        .social {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #ecf0f1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .social-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 11px;
+        }
+        
+        .social-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        /* Profil */
+        .profile {
+            margin-bottom: 25px;
+        }
+        
+        .profile-text {
+            font-size: 10px;
+            line-height: 1.5;
+            color: #bdc3c7;
+        }
+        
+        /* Éducation */
+        .education {
+            margin-bottom: 25px;
+        }
+        
+        .education-item {
+            margin-bottom: 15px;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .education-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            background: #3498db;
+            border-radius: 50%;
+        }
+        
+        .education-title {
+            font-size: 11px;
+            font-weight: bold;
+            color: #ecf0f1;
+            margin-bottom: 4px;
+        }
+        
+        .education-school {
+            font-size: 10px;
+            color: #bdc3c7;
+            margin-bottom: 2px;
+        }
+        
+        .education-date {
+            font-size: 9px;
+            color: #95a5a6;
+        }
+        
+        /* Compétences */
+        .skills {
+            margin-bottom: 25px;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .skill-item {
+            font-size: 10px;
+            color: #bdc3c7;
+            padding: 4px 8px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        /* Colonne droite - Expériences */
+        .experience {
+            margin-bottom: 25px;
+        }
+        
+        .experience-item {
+            margin-bottom: 20px;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            background: #e74c3c;
+            border-radius: 50%;
+        }
+        
+        .experience-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+        
+        .experience-company {
+            font-size: 11px;
+            color: #7f8c8d;
+            margin-bottom: 2px;
+        }
+        
+        .experience-date {
+            font-size: 10px;
+            color: #95a5a6;
+            margin-bottom: 8px;
+        }
+        
+        .experience-tech {
+            font-size: 9px;
+            color: #34495e;
+            font-style: italic;
+        }
+        
+        /* Certifications */
+        .certificates {
+            margin-bottom: 25px;
+        }
+        
+        .certificate-item {
+            margin-bottom: 15px;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .certificate-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            background: #f39c12;
+            border-radius: 50%;
+        }
+        
+        .certificate-title {
+            font-size: 11px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+        
+        .certificate-org {
+            font-size: 10px;
+            color: #7f8c8d;
+        }
+        
+        /* Centres d'intérêt */
+        .interests {
+            margin-bottom: 25px;
+        }
+        
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+        
+        .interest-item {
+            font-size: 9px;
+            color: #7f8c8d;
+        }
+        
+        .interest-icon {
+            font-size: 16px;
+            margin-bottom: 4px;
+            display: block;
+        }
+        
+        /* Responsive pour A4 */
+        @media print {
+            .page {
+                width: 210mm;
+                height: 297mm;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Colonne gauche -->
+        <div class="left-column">
+            {% for personal_info in personal %}
+            <!-- Header avec nom -->
+            <div class="header">
+                <div class="name">{{ personal_info.name }}</div>
+                <div class="title">{{ personal_info.role }}</div>
+            </div>
+            
+            <!-- Contact -->
+            <div class="contact">
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div>{{ personal_info.location }}</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉</div>
+                    <div>{{ personal_info.email }}</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div>{{ personal_info.phone }}</div>
+                </div>
+            </div>
+            
+            <!-- Réseaux sociaux -->
+            <div class="social">
+                <div class="section-title">Réseaux sociaux</div>
+                <div class="social-item">
+                    <div class="social-icon">💼</div>
+                    <div>@donaldozoubery</div>
+                </div>
+                <div class="social-item">
+                    <div class="social-icon">🐙</div>
+                    <div>@donaldozoubery</div>
+                </div>
+            </div>
+            
+            <!-- Profil -->
+            <div class="profile">
+                <div class="section-title">Profil</div>
+                <div class="profile-text">
+                    {{ personal_info.cv_description }}
+                </div>
+            </div>
+            
+            <!-- Éducation -->
+            <div class="education">
+                <div class="section-title">Éducation</div>
+                {% for education in education %}
+                <div class="education-item">
+                    <div class="education-title">{{ education.degree }}</div>
+                    <div class="education-school">{{ education.institution }}</div>
+                    <div class="education-date">{{ education.start_date|date:"M Y" }} - {{ education.end_date|date:"M Y" }}</div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Compétences -->
+            <div class="skills">
+                <div class="section-title">Compétences</div>
+                <div class="skills-grid">
+                    {% for tech in technologies %}
+                    <div class="skill-item">{{ tech.name }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Colonne droite -->
+        <div class="right-column">
+            <!-- Expériences -->
+            <div class="experience">
+                <div class="section-title">Expériences</div>
+                {% for exp in experiences %}
+                <div class="experience-item">
+                    <div class="experience-title">{{ exp.title }}</div>
+                    <div class="experience-company">{{ exp.company }}</div>
+                    <div class="experience-date">{{ exp.start_date|date:"M Y" }} - {{ exp.end_date|date:"M Y" }}</div>
+                    <div class="experience-tech">Technologies utilisées: {{ exp.technologies }}</div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Certifications -->
+            <div class="certificates">
+                <div class="section-title">Certifications</div>
+                {% for cert in grouped_portfolio %}
+                <div class="certificate-item">
+                    <div class="certificate-title">{{ cert.title }}</div>
+                    <div class="certificate-org">{{ cert.issuer }}</div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Centres d'intérêt -->
+            <div class="interests">
+                <div class="section-title">Centres d'intérêt</div>
+                <div class="interests-grid">
+                    <div class="interest-item">
+                        <div class="interest-icon">🎵</div>
+                        <div>Musique</div>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon">📷</div>
+                        <div>Photo</div>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon">✈️</div>
+                        <div>Voyager</div>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon">📚</div>
+                        <div>Livre</div>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon">⚽</div>
+                        <div>Football</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

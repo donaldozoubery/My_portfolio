@@ -8,9 +8,14 @@ echo "🚀 Démarrage du processus de build..."
 echo "📦 Mise à jour de pip..."
 pip install --upgrade pip
 
-# Installation des dépendances
-echo "📦 Installation des dépendances..."
-pip install -r requirements.txt
+# Installation des dépendances système pour Pillow
+echo "🔧 Installation des dépendances système..."
+apt-get update
+apt-get install -y libjpeg-dev zlib1g-dev libpng-dev
+
+# Installation des dépendances Python
+echo "📦 Installation des dépendances Python..."
+pip install -r requirements-render.txt
 
 # Collecte des fichiers statiques
 echo "📁 Collecte des fichiers statiques..."
