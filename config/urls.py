@@ -57,4 +57,10 @@ urlpatterns = [
 
 handler404 = "apps.portfolio.views.handle_not_found"
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Configuration pour servir les fichiers statiques et média
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    # En production, WhiteNoise s'occupe des fichiers statiques
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
