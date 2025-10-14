@@ -1,51 +1,407 @@
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NP972344"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<section id="about" class="about">
-  <!-- ======= About Me ======= -->
-  <div class="about-me container">
-    <div class="section-title">
-      <h2>À propos</h2>
-      <p>À propos de moi</p>
+<!-- ======= About Section - Roadmap ======= -->
+<section id="about" class="about-section roadmap-section">
+  <div class="container">
+    <div class="section-header text-center" data-aos="fade-up">
+      <h2 class="section-title">Mon Parcours Professionnel</h2>
+      <p class="section-subtitle">Une roadmap de mon évolution dans le développement</p>
     </div>
-    <div class="row">
-      {% for about_info in about %}
-      <div class="col-lg-4">
-        <img
-          src="{{ about_info.photo.url }}"
-          class="img-fluid avatar lazy"
-          alt="Image de Donaldo ZOUBERY"
-          loading="lazy"
-        />
-      </div>
-      <div class="col-lg-8 pt-4 pt-lg-0 content" style="line-height: 1.7;">
-          {{ about_info.description|safe  }}
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-  <!-- End About Me -->
-  <!-- ======= Interests ======= -->
-  <div class="interests container">
-    <div class="section-title">
-      <h2>Technologies</h2>
-    </div>
-    <div class="row">
-    {% for tech in technologies %}
-      <div class="col-lg-3 col-md-4 mt-4 mt-md-0" style="margin-bottom: 15px;">
-        <div class="icon-box">
-          <img
-            height="32"
-            width="32"
-            src="{{ tech.photo }}"
-          />
-          <h3>{{ tech.name }}</h3>
+    
+    <div class="roadmap-container">
+      <div class="roadmap-timeline">
+        {% for step in roadmap_steps %}
+        <div class="roadmap-item {% if step.is_current %}current{% endif %} {% if step.is_featured %}featured{% endif %}" 
+             data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+          
+          <div class="roadmap-marker" style="background-color: {{ step.color }}">
+            <i class="{{ step.icon }}"></i>
+          </div>
+          
+          <div class="roadmap-content">
+            <div class="roadmap-header">
+              <div class="roadmap-type">{{ step.get_step_type_display }}</div>
+              <div class="roadmap-duration">{{ step.duration }}</div>
+            </div>
+            
+            <h3 class="roadmap-title">{{ step.title }}</h3>
+            <p class="roadmap-description">{{ step.description }}</p>
+            
+            <div class="roadmap-dates">
+              <span class="start-date">{{ step.start_date|date:"M Y" }}</span>
+              {% if step.end_date %}
+                <span class="date-separator">→</span>
+                <span class="end-date">{{ step.end_date|date:"M Y" }}</span>
+              {% elif step.is_current %}
+                <span class="date-separator">→</span>
+                <span class="current-badge">En cours</span>
+              {% endif %}
+            </div>
+            
+            {% if step.skills.all %}
+            <div class="roadmap-skills">
+              {% for skill in step.skills.all %}
+              <span class="skill-tag">{{ skill.name }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+            
+            {% if step.external_link %}
+            <a href="{{ step.external_link }}" target="_blank" class="roadmap-link">
+              Voir plus <i class="fas fa-external-link-alt"></i>
+            </a>
+            {% endif %}
+          </div>
+          
+          {% if step.image %}
+          <div class="roadmap-image">
+            <img src="{{ step.image.url }}" alt="{{ step.title }}" class="img-fluid">
+          </div>
+          {% endif %}
         </div>
+        {% empty %}
+        <div class="roadmap-empty" data-aos="fade-up">
+          <div class="empty-content">
+            <i class="fas fa-road"></i>
+            <h3>Roadmap en construction</h3>
+            <p>Mon parcours professionnel sera bientôt disponible ici.</p>
+          </div>
+        </div>
+        {% endfor %}
       </div>
-    {% endfor %}
+    </div>
+    
+    <div class="roadmap-cta text-center" data-aos="fade-up" data-aos-delay="300">
+      <a href="{% url 'digital_cv' %}" class="btn btn-primary btn-lg" target="_blank">
+        <i class="fas fa-download"></i>
+        Télécharger mon CV complet
+      </a>
     </div>
   </div>
-  <!-- End Interests -->
 </section>
 
+<style>
+/* ========================================
+   ROADMAP SECTION STYLES
+   ======================================== */
+.roadmap-section {
+  padding: 5rem 0;
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.roadmap-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(6, 182, 212, 0.05) 100%);
+  pointer-events: none;
+}
+
+.roadmap-container {
+  position: relative;
+  z-index: 2;
+}
+
+.roadmap-timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.roadmap-timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.roadmap-item {
+  position: relative;
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.roadmap-item:nth-child(odd) {
+  flex-direction: row;
+}
+
+.roadmap-item:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.roadmap-marker {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  z-index: 3;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  border: 4px solid var(--bg-primary);
+  transition: all 0.3s ease;
+}
+
+.roadmap-item.current .roadmap-marker {
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+}
+
+.roadmap-item.featured .roadmap-marker {
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.4);
+}
+
+.roadmap-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  padding: 2rem;
+  width: calc(50% - 40px);
+  position: relative;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.roadmap-item:nth-child(odd) .roadmap-content {
+  margin-right: 40px;
+}
+
+.roadmap-item:nth-child(even) .roadmap-content {
+  margin-left: 40px;
+}
+
+.roadmap-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-color: var(--primary-color);
+}
+
+.roadmap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.roadmap-type {
+  background: var(--gradient-primary);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.roadmap-duration {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.roadmap-title {
+  color: var(--text-primary);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.roadmap-description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.roadmap-dates {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.start-date, .end-date {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.date-separator {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.current-badge {
+  background: var(--gradient-primary);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.roadmap-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.skill-tag {
+  background: var(--bg-glass);
+  color: var(--text-primary);
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.roadmap-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.roadmap-link:hover {
+  color: var(--secondary-color);
+  transform: translateX(5px);
+}
+
+.roadmap-image {
+  width: calc(50% - 40px);
+  position: relative;
+}
+
+.roadmap-item:nth-child(odd) .roadmap-image {
+  margin-left: 40px;
+}
+
+.roadmap-item:nth-child(even) .roadmap-image {
+  margin-right: 40px;
+}
+
+.roadmap-image img {
+  border-radius: 15px;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.roadmap-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-secondary);
+}
+
+.empty-content i {
+  font-size: 4rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.empty-content h3 {
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.roadmap-cta {
+  margin-top: 3rem;
+}
+
+.roadmap-cta .btn {
+  background: var(--gradient-primary);
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+}
+
+.roadmap-cta .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.1); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .roadmap-timeline::before {
+    left: 30px;
+  }
+  
+  .roadmap-item {
+    flex-direction: column !important;
+    align-items: flex-start;
+    padding-left: 60px;
+  }
+  
+  .roadmap-marker {
+    left: 30px !important;
+    transform: translate(-50%, -50%);
+  }
+  
+  .roadmap-content {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  
+  .roadmap-image {
+    width: 100% !important;
+    margin: 1rem 0 0 0 !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .roadmap-content {
+    padding: 1.5rem;
+  }
+  
+  .roadmap-title {
+    font-size: 1.2rem;
+  }
+  
+  .roadmap-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+</style>

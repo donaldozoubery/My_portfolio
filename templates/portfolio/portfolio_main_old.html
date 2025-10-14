@@ -1,0 +1,324 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NP972344"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="hero-section">
+    <div class="hero-background">
+        <div class="particles-container" id="particles-js"></div>
+        <div class="gradient-overlay"></div>
+    </div>
+    
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-code"></i>
+                        <span>Développeur Full-Stack</span>
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        <span class="text-gradient">Donaldo</span>
+                        <span class="text-gradient">ZOUBERY</span>
+                    </h1>
+                    
+                    <div class="hero-subtitle">
+                        <span class="typing-text" data-strings='["Développeur Full-Stack", "Expert DevOps", "Architecte Solutions", "Passionné Innovation"]'></span>
+                    </div>
+                    
+                    <p class="hero-description">
+                        Je crée des expériences digitales exceptionnelles en combinant créativité et expertise technique. 
+                        Spécialisé dans le développement web moderne, les solutions cloud et l'architecture de systèmes robustes.
+                        Basé à Antananarivo, Madagascar, je transforme vos idées en solutions technologiques innovantes.
+                    </p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="{{ total_projects }}">0</div>
+                            <div class="stat-label">Projets</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="{{ total_experience }}">0</div>
+                            <div class="stat-label">Années d'expérience</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="{{ total_technologies }}">0</div>
+                            <div class="stat-label">Technologies</div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-actions">
+                        <a href="#about" class="btn btn-primary btn-lg">
+                            <i class="fas fa-user"></i>
+                            Découvrir mon profil
+                        </a>
+                        <a href="{% url 'digital_cv' %}" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-download"></i>
+                            Télécharger CV
+                        </a>
+                    </div>
+                    
+                    <div class="hero-social">
+                        {% for personal_info in personal %}
+                        <a href="{{ personal_info.github }}" target="_blank" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="{{ personal_info.linkedin }}" target="_blank" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:{{ personal_info.email }}" class="social-link">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
+                <div class="hero-image">
+                    <div class="image-container">
+                        {% for personal_info in personal %}
+                        {% if personal_info.photo %}
+                        <img src="{{ personal_info.photo.url }}" alt="Donaldo ZOUBERY" class="profile-image">
+                        {% else %}
+                        <div class="profile-placeholder">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        <div class="floating-elements">
+                            <div class="floating-icon" style="--delay: 0s;">
+                                <i class="fab fa-python"></i>
+                            </div>
+                            <div class="floating-icon" style="--delay: 1s;">
+                                <i class="fab fa-js"></i>
+                            </div>
+                            <div class="floating-icon" style="--delay: 2s;">
+                                <i class="fab fa-react"></i>
+                            </div>
+                            <div class="floating-icon" style="--delay: 3s;">
+                                <i class="fab fa-docker"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="scroll-indicator">
+        <div class="scroll-arrow">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </div>
+</section>
+
+<!-- ======= Navigation ======= -->
+{% include 'layouts/header.html' %}
+
+<!-- ======= About Section ======= -->
+{% include 'portfolio/about.html' %}
+
+<!-- ======= Skills Section ======= -->
+<section id="skills" class="skills-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">Compétences Techniques</h2>
+            <p class="section-subtitle">Technologies que je maîtrise</p>
+        </div>
+        
+        <div class="row">
+            {% for tech in technologies %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="{{ tech.photo }}" alt="{{ tech.name }}" class="skill-image">
+                    </div>
+                    <h4 class="skill-name">{{ tech.name }}</h4>
+                    <div class="skill-progress">
+                        <div class="progress-bar" data-width="{{ tech.skill_level }}"></div>
+                    </div>
+                    <span class="skill-percentage">{{ tech.skill_level }}%</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ======= Portfolio Section ======= -->
+{% include 'portfolio/portfolio.html' %}
+
+<!-- ======= Projects Section ======= -->
+<section id="projects" class="projects-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">Projets Récents</h2>
+            <p class="section-subtitle">Mes réalisations les plus marquantes</p>
+        </div>
+        
+        <div class="row">
+            {% for project in featured_projects %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="project-card">
+                    <div class="project-image">
+                        {% if project.featured_image %}
+                        <img src="{{ project.featured_image.url }}" alt="{{ project.name }}">
+                        {% else %}
+                        <div class="project-placeholder">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        {% endif %}
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                {% if project.github_url %}
+                                <a href="{{ project.github_url }}" target="_blank" class="project-link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                {% endif %}
+                                {% if project.live_url %}
+                                <a href="{{ project.live_url }}" target="_blank" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-status">
+                            <span class="status-badge status-{{ project.status }}">{{ project.get_status_display }}</span>
+                        </div>
+                        <h4 class="project-title">{{ project.name }}</h4>
+                        <p class="project-description">{{ project.short_description }}</p>
+                        <div class="project-technologies">
+                            {% for tech in project.technologies.all|slice:":4" %}
+                            <span class="tech-tag">{{ tech.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{% url 'project_list' %}" class="btn btn-outline-primary btn-lg">
+                Voir tous les projets
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ======= Testimonials Section ======= -->
+{% if testimonials %}
+<section id="testimonials" class="testimonials-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">Témoignages Clients</h2>
+            <p class="section-subtitle">Ce que disent mes clients</p>
+        </div>
+        
+        <div class="testimonials-slider">
+            {% for testimonial in testimonials %}
+            <div class="testimonial-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="testimonial-content">
+                    <div class="testimonial-rating">
+                        {% for i in "12345"|make_list %}
+                        <i class="fas fa-star{% if forloop.counter <= testimonial.rating %}{% else %}-o{% endif %}"></i>
+                        {% endfor %}
+                    </div>
+                    <p class="testimonial-text">"{{ testimonial.content }}"</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            {% if testimonial.photo %}
+                            <img src="{{ testimonial.photo.url }}" alt="{{ testimonial.client_name }}">
+                            {% else %}
+                            <div class="author-initials">{{ testimonial.client_name|first }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="author-info">
+                            <h5 class="author-name">{{ testimonial.client_name }}</h5>
+                            <p class="author-position">{{ testimonial.client_position }} chez {{ testimonial.client_company }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ======= Blog Section ======= -->
+{% if blog_posts %}
+<section id="blog" class="blog-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">Derniers Articles</h2>
+            <p class="section-subtitle">Mes réflexions sur le développement</p>
+        </div>
+        
+        <div class="row">
+            {% for post in blog_posts %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <article class="blog-card">
+                    <div class="blog-image">
+                        {% if post.featured_image %}
+                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                        {% else %}
+                        <div class="blog-placeholder">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        {% endif %}
+                        <div class="blog-date">
+                            <span class="day">{{ post.created_at|date:"d" }}</span>
+                            <span class="month">{{ post.created_at|date:"M" }}</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-author">{{ post.author }}</span>
+                            <span class="blog-views">{{ post.view_count }} vues</span>
+                        </div>
+                        <h4 class="blog-title">
+                            <a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a>
+                        </h4>
+                        <p class="blog-excerpt">{{ post.excerpt }}</p>
+                        <a href="{% url 'blog_detail' post.slug %}" class="blog-read-more">
+                            Lire la suite <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{% url 'blog_list' %}" class="btn btn-outline-primary btn-lg">
+                Voir tous les articles
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ======= Contact Section ======= -->
+{% include 'portfolio/contactme.html' %}
+
+<!-- ======= Footer Section ======= -->
+{% include 'layouts/footer.html' %}
+
+<!-- ======= Back to Top ======= -->
+<a href="#" class="back-to-top" id="back-to-top">
+    <i class="fas fa-chevron-up"></i>
+</a>
+
+{% endblock content %}

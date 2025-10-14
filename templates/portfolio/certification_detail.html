@@ -1,0 +1,632 @@
+{% extends 'layouts/base.html' %}
+{% load portfolio_extras %}
+
+{% block title %}{{ certification.title }} - Certification{% endblock %}
+
+{% block content %}
+<!-- ======= Header ======= -->
+{% include 'layouts/header.html' %}
+
+<!-- ======= Certification Detail Section ======= -->
+<section class="certification-detail-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Accueil</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'certification_list' %}">Certifications</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ certification.title }}</li>
+                    </ol>
+                </nav>
+
+                <!-- Certification Header -->
+                <div class="certification-header">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <h1 class="certification-title">{{ certification.title }}</h1>
+                            <p class="certification-organization">{{ certification.issuing_organization }}</p>
+                            <div class="certification-meta">
+                                <span class="certification-status status-{{ certification.status|lower }}">
+                                    <i class="fas fa-circle"></i>
+                                    {{ certification.status }}
+                                </span>
+                                <span class="certification-date">
+                                    <i class="fas fa-calendar"></i>
+                                    {{ certification.issue_date|date:"M Y" }}
+                                </span>
+                                {% if certification.expiry_date %}
+                                <span class="certification-expiry">
+                                    <i class="fas fa-clock"></i>
+                                    Expire: {{ certification.expiry_date|date:"M Y" }}
+                                </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-lg-4 text-lg-end">
+                            <div class="certification-links">
+                                {% if certification.credential_url %}
+                                <a href="{{ certification.credential_url }}" target="_blank" class="certification-link verify">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Vérifier la certification
+                                </a>
+                                {% endif %}
+                                {% if certification.credential_id %}
+                                <a href="#" class="certification-link copy-id" data-id="{{ certification.credential_id }}">
+                                    <i class="fas fa-copy"></i>
+                                    Copier l'ID
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certification Image -->
+                {% if certification.image %}
+                <div class="certification-image">
+                    <img src="{{ certification.image.url }}" alt="{{ certification.title }}" class="img-fluid">
+                </div>
+                {% endif %}
+
+                <!-- Certification Content -->
+                <div class="certification-content">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <!-- Description -->
+                            {% if certification.description %}
+                            <div class="content-section">
+                                <h3>Description de la certification</h3>
+                                <div class="description-content">
+                                    {{ certification.description|linebreaks }}
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            <!-- Skills -->
+                            {% if certification.skills.all %}
+                            <div class="content-section">
+                                <h3>Compétences validées</h3>
+                                <div class="skills-grid">
+                                    {% for skill in certification.skills.all %}
+                                    <div class="skill-item">
+                                        <div class="skill-icon">
+                                            <i class="{{ skill.icon }}"></i>
+                                        </div>
+                                        <span class="skill-name">{{ skill.name }}</span>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-lg-4">
+                            <!-- Certification Info -->
+                            <div class="certification-info-card">
+                                <h4>Informations de la certification</h4>
+                                <div class="info-list">
+                                    <div class="info-item">
+                                        <span class="info-label">Organisme</span>
+                                        <span class="info-value">{{ certification.issuing_organization }}</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Statut</span>
+                                        <span class="info-value status-{{ certification.status|lower }}">{{ certification.status }}</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Date d'obtention</span>
+                                        <span class="info-value">{{ certification.issue_date|date:"d M Y" }}</span>
+                                    </div>
+                                    {% if certification.expiry_date %}
+                                    <div class="info-item">
+                                        <span class="info-label">Date d'expiration</span>
+                                        <span class="info-value">{{ certification.expiry_date|date:"d M Y" }}</span>
+                                    </div>
+                                    {% endif %}
+                                    {% if certification.credential_id %}
+                                    <div class="info-item">
+                                        <span class="info-label">ID de certification</span>
+                                        <span class="info-value credential-id">{{ certification.credential_id }}</span>
+                                    </div>
+                                    {% endif %}
+                                    <div class="info-item">
+                                        <span class="info-label">Validée</span>
+                                        <span class="info-value">
+                                            {% if certification.is_verified %}
+                                                <i class="fas fa-check-circle text-success"></i> Oui
+                                            {% else %}
+                                                <i class="fas fa-times-circle text-danger"></i> Non
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Quick Actions -->
+                            <div class="quick-actions-card">
+                                <h4>Actions rapides</h4>
+                                <div class="actions-list">
+                                    {% if certification.credential_url %}
+                                    <a href="{{ certification.credential_url }}" target="_blank" class="quick-action">
+                                        <i class="fas fa-external-link-alt"></i>
+                                        Vérifier en ligne
+                                    </a>
+                                    {% endif %}
+                                    {% if certification.credential_id %}
+                                    <button class="quick-action copy-btn" data-id="{{ certification.credential_id }}">
+                                        <i class="fas fa-copy"></i>
+                                        Copier l'ID
+                                    </button>
+                                    {% endif %}
+                                    <a href="{% url 'certification_list' %}" class="quick-action">
+                                        <i class="fas fa-list"></i>
+                                        Voir toutes les certifications
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="certification-navigation">
+                    <a href="{% url 'certification_list' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left"></i>
+                        Retour aux certifications
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* ========================================
+   CERTIFICATION DETAIL SECTION STYLES
+   ======================================== */
+.certification-detail-section {
+    padding: 120px 0 50px;
+    background: var(--bg-primary);
+    min-height: 100vh;
+}
+
+.breadcrumb {
+    background: var(--bg-card);
+    border-radius: var(--border-radius-lg);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
+    color: var(--text-muted);
+    margin: 0 0.75rem;
+    font-weight: 600;
+}
+
+.breadcrumb-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--primary-light);
+}
+
+.breadcrumb-item.active {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.certification-header {
+    background: var(--bg-card);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.certification-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.certification-organization {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.certification-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: center;
+}
+
+.certification-date,
+.certification-expiry {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-tertiary);
+    border-radius: var(--border-radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.certification-date i,
+.certification-expiry i {
+    color: var(--primary-color);
+    width: 16px;
+}
+
+.certification-status {
+    background: var(--bg-tertiary);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.certification-status i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.status-valide {
+    background: rgba(34, 197, 94, 0.1);
+    border-color: rgba(34, 197, 94, 0.3);
+    color: #22c55e;
+}
+
+.status-valide i {
+    background: #22c55e;
+}
+
+.status-expiree {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+}
+
+.status-expiree i {
+    background: #ef4444;
+}
+
+.status-expire-bientot {
+    background: rgba(251, 191, 36, 0.1);
+    border-color: rgba(251, 191, 36, 0.3);
+    color: #fbbf24;
+}
+
+.status-expire-bientot i {
+    background: #fbbf24;
+}
+
+.certification-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.certification-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: var(--border-radius-lg);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    text-align: center;
+    white-space: nowrap;
+    min-width: 200px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.certification-link.verify {
+    background: var(--primary-color);
+    color: white;
+}
+
+.certification-link.copy-id {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.certification-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.certification-link.copy-id:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.certification-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.certification-link:hover::before {
+    left: 100%;
+}
+
+.certification-image {
+    margin-bottom: 2rem;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+}
+
+.certification-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: contain;
+    background: var(--bg-tertiary);
+}
+
+.certification-content {
+    background: var(--bg-card);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.content-section {
+    margin-bottom: 2rem;
+}
+
+.content-section h3 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.description-content {
+    color: var(--text-primary);
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: var(--bg-tertiary);
+    border-radius: var(--border-radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.skill-item:hover {
+    background: var(--bg-secondary);
+    transform: translateY(-2px);
+}
+
+.skill-icon {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    width: 24px;
+    text-align: center;
+}
+
+.skill-name {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.certification-info-card,
+.quick-actions-card {
+    background: var(--bg-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.certification-info-card h4,
+.quick-actions-card h4 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.info-value {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.credential-id {
+    font-family: 'Courier New', monospace;
+    background: var(--bg-card);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.actions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.quick-action {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: var(--bg-card);
+    border-radius: var(--border-radius-md);
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+}
+
+.quick-action:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateX(5px);
+}
+
+.certification-navigation {
+    text-align: center;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 768px) {
+    .certification-detail-section {
+        padding: 100px 0 30px;
+    }
+    
+    .certification-title {
+        font-size: 2rem;
+    }
+    
+    .certification-meta {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: stretch;
+    }
+    
+    .certification-date,
+    .certification-expiry,
+    .certification-status {
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .certification-links {
+        margin-top: 1rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .certification-link {
+        min-width: 160px;
+        font-size: 0.9rem;
+        padding: 0.75rem 1.25rem;
+    }
+    
+    .certification-image img {
+        height: 250px;
+    }
+    
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .certification-content {
+        padding: 1.5rem;
+    }
+    
+    .breadcrumb {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    .breadcrumb-item + .breadcrumb-item::before {
+        margin: 0 0.5rem;
+    }
+}
+</style>
+
+<script>
+// Copy ID functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const copyButtons = document.querySelectorAll('.copy-btn, .copy-id');
+    
+    copyButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            navigator.clipboard.writeText(id).then(function() {
+                // Show success message
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copié !';
+                button.style.background = 'var(--success-color)';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = '';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Erreur lors de la copie: ', err);
+            });
+        });
+    });
+});
+</script>
+{% endblock %}

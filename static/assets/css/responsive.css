@@ -1,0 +1,707 @@
+/* ========================================
+   RESPONSIVE DESIGN ULTRA-OPTIMISÉ
+   ======================================== */
+
+/* ========================================
+   VARIABLES RESPONSIVES
+   ======================================== */
+:root {
+  --container-padding-mobile: 1rem;
+  --container-padding-tablet: 2rem;
+  --container-padding-desktop: 3rem;
+  
+  --font-size-mobile: 0.9rem;
+  --font-size-tablet: 1rem;
+  --font-size-desktop: 1.1rem;
+  
+  --spacing-mobile: 1rem;
+  --spacing-tablet: 1.5rem;
+  --spacing-desktop: 2rem;
+}
+
+/* ========================================
+   CONTAINER RESPONSIF
+   ======================================== */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--container-padding-mobile);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--container-padding-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 var(--container-padding-desktop);
+  }
+}
+
+/* ========================================
+   GRID SYSTEM RESPONSIF
+   ======================================== */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.5rem;
+}
+
+.col-12 { width: 100%; }
+.col-6 { width: 50%; }
+.col-4 { width: 33.333%; }
+.col-3 { width: 25%; }
+
+@media (max-width: 768px) {
+  .col-6,
+  .col-4,
+  .col-3 {
+    width: 100%;
+  }
+}
+
+/* ========================================
+   HERO SECTION RESPONSIVE
+   ======================================== */
+.hero-section {
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+.hero-content {
+  padding: 1rem 0;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.hero-actions {
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.hero-actions .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.hero-stats {
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2rem;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+}
+
+.hero-image {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.profile-image {
+  width: 250px;
+  height: 250px;
+}
+
+.floating-icon {
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.4rem;
+  }
+  
+  .hero-description {
+    font-size: 1.1rem;
+  }
+  
+  .hero-actions {
+    flex-direction: row;
+  }
+  
+  .hero-actions .btn {
+    width: auto;
+  }
+  
+  .hero-stats {
+    justify-content: flex-start;
+  }
+  
+  .profile-image {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .floating-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: 3.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem;
+  }
+  
+  .hero-description {
+    font-size: 1.2rem;
+  }
+  
+  .hero-image {
+    margin-top: 0;
+  }
+}
+
+/* ========================================
+   SECTIONS RESPONSIVES
+   ======================================== */
+.section-header {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+  .section-header {
+    margin-bottom: 3rem;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1.1rem;
+  }
+}
+
+/* ========================================
+   SKILLS SECTION RESPONSIVE
+   ======================================== */
+.skills-section {
+  padding: 3rem 0;
+}
+
+.skill-card {
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.skill-icon {
+  width: 50px;
+  height: 50px;
+  font-size: 1.2rem;
+}
+
+.skill-name {
+  font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+  .skills-section {
+    padding: 4rem 0;
+  }
+  
+  .skill-card {
+    padding: 2rem;
+  }
+  
+  .skill-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+  
+  .skill-name {
+    font-size: 1.1rem;
+  }
+}
+
+/* ========================================
+   PORTFOLIO SECTION RESPONSIVE
+   ======================================== */
+.portfolio-section {
+  padding: 3rem 0;
+}
+
+.portfolio-filters {
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.project-card {
+  margin-bottom: 1rem;
+}
+
+.project-image {
+  height: 200px;
+}
+
+.project-content {
+  padding: 1rem;
+}
+
+.project-title {
+  font-size: 1.1rem;
+}
+
+.project-description {
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .portfolio-section {
+    padding: 4rem 0;
+  }
+  
+  .portfolio-filters {
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  
+  .filter-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  
+  .project-content {
+    padding: 1.5rem;
+  }
+  
+  .project-title {
+    font-size: 1.2rem;
+  }
+  
+  .project-description {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ========================================
+   BLOG SECTION RESPONSIVE
+   ======================================== */
+.blog-section {
+  padding: 3rem 0;
+}
+
+.blog-card {
+  margin-bottom: 1rem;
+}
+
+.blog-image {
+  height: 180px;
+}
+
+.blog-content {
+  padding: 1rem;
+}
+
+.blog-title {
+  font-size: 1.1rem;
+}
+
+.blog-excerpt {
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .blog-section {
+    padding: 4rem 0;
+  }
+  
+  .blog-image {
+    height: 200px;
+  }
+  
+  .blog-content {
+    padding: 1.5rem;
+  }
+  
+  .blog-title {
+    font-size: 1.2rem;
+  }
+  
+  .blog-excerpt {
+    font-size: 1rem;
+  }
+}
+
+/* ========================================
+   TESTIMONIALS SECTION RESPONSIVE
+   ======================================== */
+.testimonials-section {
+  padding: 3rem 0;
+}
+
+.testimonials-slider {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.testimonial-item {
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.testimonial-text {
+  font-size: 1rem;
+}
+
+.testimonial-author {
+  flex-direction: column;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .testimonials-section {
+    padding: 4rem 0;
+  }
+  
+  .testimonials-slider {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  
+  .testimonial-item {
+    padding: 2rem;
+  }
+  
+  .testimonial-text {
+    font-size: 1.1rem;
+  }
+  
+  .testimonial-author {
+    flex-direction: row;
+    text-align: left;
+  }
+}
+
+@media (min-width: 1024px) {
+  .testimonials-slider {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ========================================
+   CONTACT SECTION RESPONSIVE
+   ======================================== */
+.contact-section {
+  padding: 3rem 0;
+}
+
+.contact-content {
+  gap: 2rem;
+}
+
+.contact-info {
+  margin-bottom: 2rem;
+}
+
+.contact-item {
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.contact-form {
+  padding: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  padding: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .contact-section {
+    padding: 4rem 0;
+  }
+  
+  .contact-content {
+    gap: 3rem;
+  }
+  
+  .contact-info {
+    margin-bottom: 0;
+  }
+  
+  .contact-item {
+    padding: 1.5rem;
+  }
+  
+  .contact-form {
+    padding: 2rem;
+  }
+  
+  .form-control {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  
+  .btn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+/* ========================================
+   NAVIGATION RESPONSIVE
+   ======================================== */
+.navbar {
+  padding: 0.75rem 0;
+}
+
+.navbar .container {
+  padding: 0 1rem;
+}
+
+.navbar-brand {
+  gap: 0.5rem;
+}
+
+.brand-text {
+  font-size: 1rem;
+}
+
+.navbar-menu {
+  display: none;
+}
+
+.navbar-menu.active {
+  display: block;
+}
+
+.navbar-nav {
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 0;
+}
+
+.nav-link {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+}
+
+.nav-link i {
+  font-size: 0.8rem;
+  width: 12px;
+}
+
+@media (min-width: 768px) {
+  .navbar {
+    padding: 1rem 0;
+  }
+  
+  .navbar .container {
+    padding: 0 2rem;
+  }
+  
+  .brand-text {
+    font-size: 1.25rem;
+  }
+  
+  .navbar-menu {
+    display: block;
+  }
+  
+  .navbar-nav {
+    flex-direction: row;
+    gap: 1rem;
+    padding: 0;
+  }
+  
+  .nav-link {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .nav-link i {
+    font-size: 0.85rem;
+    width: 14px;
+  }
+}
+
+/* ========================================
+   FOOTER RESPONSIVE
+   ======================================== */
+.footer {
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.footer-content {
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-text {
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .footer {
+    padding: 3rem 0;
+  }
+  
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer-text {
+    font-size: 1rem;
+  }
+}
+
+/* ========================================
+   UTILITAIRES RESPONSIVES
+   ======================================== */
+.text-center-mobile {
+  text-align: center;
+}
+
+.text-left-mobile {
+  text-align: left;
+}
+
+.hidden-mobile {
+  display: none;
+}
+
+.visible-mobile {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .text-center-mobile {
+    text-align: left;
+  }
+  
+  .hidden-mobile {
+    display: block;
+  }
+  
+  .visible-mobile {
+    display: none;
+  }
+}
+
+/* ========================================
+   ANIMATIONS RESPONSIVES
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+@media print {
+  .navbar,
+  .hero-background,
+  .floating-elements,
+  .back-to-top {
+    display: none !important;
+  }
+  
+  .hero-section {
+    min-height: auto;
+    padding: 2rem 0;
+  }
+  
+  .section-title {
+    color: #000 !important;
+  }
+  
+  .section-subtitle {
+    color: #666 !important;
+  }
+  
+  .card-bg {
+    background: #fff !important;
+    border: 1px solid #ddd !important;
+  }
+}

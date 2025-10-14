@@ -1,0 +1,491 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load portfolio_extras %}
+
+{% block title %}Projets - Portfolio{% endblock %}
+
+{% block content %}
+<!-- ======= Header ======= -->
+{% include 'layouts/header.html' %}
+
+<!-- ======= Project List Section ======= -->
+<section id="project-list" class="project-list-section">
+    <div class="container">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Projets</li>
+            </ol>
+        </nav>
+
+        <div class="section-header" data-aos="fade-up">
+            <h1 class="section-title">Mes Projets</h1>
+            <p class="section-subtitle">Découvrez mes réalisations et projets personnels</p>
+        </div>
+
+
+        <div class="row project-grid">
+            {% for project in projects %}
+            <div class="col-lg-4 col-md-6 mb-4 project-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="project-card">
+                    <div class="project-image">
+                        {% if project.featured_image %}
+                        <img src="{{ project.featured_image.url }}" alt="{{ project.name }}" class="project-img" loading="lazy">
+                        {% else %}
+                        <div class="project-placeholder">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="project-overlay">
+                            <div class="project-actions">
+                                {% if project.github_url %}
+                                <a href="{{ project.github_url }}" target="_blank" class="project-action" title="Code source">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                {% endif %}
+                                {% if project.live_url %}
+                                <a href="{{ project.live_url }}" target="_blank" class="project-action" title="Voir en live">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                {% endif %}
+                                {% if project.demo_url %}
+                                <a href="{{ project.demo_url }}" target="_blank" class="project-action" title="Démo">
+                                    <i class="fas fa-play"></i>
+                                </a>
+                                {% endif %}
+                                <a href="{% url 'project_detail' project.id %}" class="project-action" title="Voir détails">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-badge">
+                            <span class="badge badge-{{ project.status }}">{{ project.get_status_display }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-content">
+                        <div class="project-meta">
+                            <span class="project-category">
+                                <i class="fas fa-folder"></i>
+                                {{ project.get_category_display }}
+                            </span>
+                            <span class="project-date">
+                                <i class="fas fa-calendar"></i>
+                                {{ project.start_date|date:"M Y" }}
+                            </span>
+                        </div>
+                        
+                        <h3 class="project-title">
+                            <a href="{% url 'project_detail' project.id %}">{{ project.name }}</a>
+                        </h3>
+                        
+                        <p class="project-description">{{ project.short_description|truncatewords:20 }}</p>
+                        
+                        <div class="project-technologies">
+                            {% for tech in project.technologies.all %}
+                            <span class="tech-tag">
+                                <i class="{{ tech.icon }}"></i>
+                                {{ tech.name }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="project-links">
+                            <a href="{% url 'project_detail' project.id %}" class="project-link">
+                                Voir détails <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <div class="no-projects">
+                    <i class="fas fa-project-diagram"></i>
+                    <h4>Aucun projet disponible</h4>
+                    <p>Les projets seront bientôt ajoutés</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <nav aria-label="Pagination des projets" class="mt-5">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">
+                        <i class="fas fa-angle-double-left"></i>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+
+        <!-- Back to Home -->
+        <div class="text-center mt-5">
+            <a href="{% url 'home' %}" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left"></i>
+                Retour à l'accueil
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+/* ========================================
+   PROJECT LIST SECTION STYLES
+   ======================================== */
+.project-list-section {
+    padding: 120px 0 50px;
+    background: var(--bg-primary);
+    min-height: 100vh;
+}
+
+.breadcrumb {
+    background: var(--bg-card);
+    border-radius: var(--border-radius-lg);
+    padding: 1rem;
+}
+
+.breadcrumb-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.breadcrumb-item.active {
+    color: var(--text-secondary);
+}
+
+
+.project-card {
+    background: var(--bg-card);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-color);
+}
+
+.project-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-img {
+    transform: scale(1.05);
+}
+
+.project-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: white;
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.project-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.project-action:hover {
+    background: var(--primary-dark);
+    transform: scale(1.1);
+}
+
+.project-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+}
+
+.badge {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-completed {
+    background: var(--success-color);
+    color: white;
+}
+
+.badge-in-progress {
+    background: var(--warning-color);
+    color: white;
+}
+
+.badge-planned {
+    background: var(--text-muted);
+    color: white;
+}
+
+.project-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.project-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.project-category,
+.project-date {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.project-category i,
+.project-date i {
+    color: var(--primary-color);
+    width: 14px;
+}
+
+.project-title {
+    margin-bottom: 1rem;
+}
+
+.project-title a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+}
+
+.project-title a:hover {
+    color: var(--primary-color);
+}
+
+.project-description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+.project-technologies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    max-height: 60px;
+    overflow: hidden;
+}
+
+.tech-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tech-tag i {
+    color: var(--primary-color);
+    width: 12px;
+}
+
+.project-links {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: var(--border-radius-md);
+    transition: all 0.3s ease;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.project-link:hover {
+    background: var(--primary-dark);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.no-projects {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary);
+}
+
+.no-projects i {
+    font-size: 4rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.no-projects h4 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.pagination .page-link {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    padding: 0.75rem 1rem;
+    margin: 0 0.25rem;
+    border-radius: var(--border-radius-md);
+    transition: all 0.3s ease;
+}
+
+.pagination .page-link:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.pagination .page-item.active .page-link {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 768px) {
+    .project-list-section {
+        padding: 100px 0 30px;
+    }
+    
+    
+    
+    .project-content {
+        padding: 1rem;
+    }
+    
+    .project-title a {
+        font-size: 1.1rem;
+    }
+    
+    .project-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+}
+</style>
+
+<script>
+</script>
+{% endblock %}

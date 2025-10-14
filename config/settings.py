@@ -144,9 +144,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-fr'
 
-TIME_ZONE = 'Asia/Manila'
+TIME_ZONE = 'Indian/Antananarivo'
 
 USE_I18N = True
 
@@ -188,3 +188,20 @@ cloudinary.config(
     api_key=os.environ.get("CLOUD_API_KEY", ""),
     api_secret=os.environ.get("CLOUD_API_SECRET", "")
 )
+
+# SEO Configuration
+SITE_NAME = "Donaldo ZOUBERY - Portfolio"
+SITE_DESCRIPTION = "Développeur Full-Stack passionné par la création d'expériences digitales exceptionnelles. Expert en Python, Django, React, DevOps et solutions cloud."
+SITE_URL = "https://donaldozoubery.com"
+
+# Security settings for production
+if not DEBUG:
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+
+# Configuration WeasyPrint pour la génération PDF
+WEASYPRINT_BASEURL = 'http://127.0.0.1:8000'  # URL de base pour les ressources statiques

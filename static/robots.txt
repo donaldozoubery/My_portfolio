@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://donaldozoubery.com/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /static/admin/
+Disallow: /media/admin/
+
+# Allow important pages
+Allow: /static/
+Allow: /media/
+Allow: /blog/
+Allow: /projects/
+Allow: /digital_cv/
+
+# Crawl delay (optional)
+Crawl-delay: 1

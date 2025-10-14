@@ -11,19 +11,80 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Donaldo ZOUBERY</title>
+    <title>{% block title %}Donaldo ZOUBERY - Développeur Full-Stack & Expert DevOps{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="description here"
+      content="{% block description %}Développeur Full-Stack passionné par la création d'expériences digitales exceptionnelles. Expert en Python, Django, React, DevOps et solutions cloud. Portfolio professionnel avec projets innovants.{% endblock %}"
     />
     <meta
       name="keywords"
-      content="Keywords here"
+      content="{% block keywords %}Donaldo ZOUBERY, développeur full-stack, Python, Django, React, JavaScript, DevOps, AWS, Docker, portfolio développeur, Madagascar, Antananarivo, développement web, applications web, solutions cloud{% endblock %}"
     />
-    <meta name="author" content="name here" />
+    <meta name="author" content="Donaldo ZOUBERY" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{% block og_url %}https://donaldozoubery.com{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}Donaldo ZOUBERY - Développeur Full-Stack{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Développeur Full-Stack passionné par la création d'expériences digitales exceptionnelles. Expert en Python, Django, React, DevOps.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{% static 'images/profile_pics/main/Avatar_Photo-modified.png' %}{% endblock %}">
+    <meta property="og:site_name" content="Donaldo ZOUBERY Portfolio">
+    <meta property="og:locale" content="fr_FR">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{% block twitter_url %}https://donaldozoubery.com{% endblock %}">
+    <meta property="twitter:title" content="{% block twitter_title %}Donaldo ZOUBERY - Développeur Full-Stack{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}Développeur Full-Stack passionné par la création d'expériences digitales exceptionnelles.{% endblock %}">
+    <meta property="twitter:image" content="{% block twitter_image %}{% static 'images/profile_pics/main/Avatar_Photo-modified.png' %}{% endblock %}">
+    
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="language" content="French">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    <meta name="rating" content="general">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{% block canonical_url %}https://donaldozoubery.com{% endblock %}">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Donaldo ZOUBERY",
+      "jobTitle": "Développeur Full-Stack",
+      "description": "Développeur Full-Stack passionné par la création d'expériences digitales exceptionnelles",
+      "url": "https://donaldozoubery.com",
+      "image": "{% static 'images/profile_pics/main/Avatar_Photo-modified.png' %}",
+      "sameAs": [
+        "https://github.com/donaldozoubery",
+        "https://linkedin.com/in/donaldozoubery"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Diego-Suarez",
+        "addressCountry": "Madagascar"
+      },
+      "email": "dzoubery@gmail.com",
+      "telephone": "+261 342 50 051 74",
+      "knowsAbout": [
+        "Python",
+        "Django",
+        "JavaScript",
+        "React",
+        "DevOps",
+        "AWS",
+        "Docker",
+        "PostgreSQL"
+      ]
+    }
+    </script>
     <!-- Favicons -->
-    <link href="{% static 'assets/img/favicon.ico' %}" rel="icon"/>
+    <link href="{% static 'assets/img/favicon.png' %}" rel="icon"/>
     <link href="{% static 'assets/img/apple-touch-icon.ico' %}" rel="apple-touch-icon" />
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/eca479fe41.js" crossorigin="anonymous"></script>
@@ -33,6 +94,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Template Main CSS File -->
     <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet" />
     <!-- Fancybox CSS -->
     <link
       rel="stylesheet"
@@ -42,35 +104,43 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Karla:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="preload"
       as="style"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Karla:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- AOS Animation Library -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
   </head>
-  <body>
+  <body class="dark">
+    {% csrf_token %}
     <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NP972344"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-    <!-- Floating Circles -->
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="theme-toggle" title="Changer de thème">
+        <i class="fas fa-moon"></i>
+    </button>
 
-    <ul class="circles">
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <span class="logo-text">DZ</span>
+            </div>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Chargement...</p>
+        </div>
+    </div>
   
 
     {% block content %}

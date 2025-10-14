@@ -1,94 +1,543 @@
-<section id="contact" class="contact">
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact-section">
   <div class="container">
-    <div class="section-title">
-      <h2>Contacts</h2>
-      <p>Contactez-moi</p>
+    <div class="section-header" data-aos="fade-up">
+      <h2 class="section-title">Contactez-moi</h2>
+      <p class="section-subtitle">Parlons de votre prochain projet</p>
     </div>
-    {% for personal_info in personal %}
-    <div class="row mt-2">
-      <div class="col-md-6 d-flex align-items-stretch">
-        <div class="info-box">
-          <i class="fa-solid fa-earth-asia"></i>
-          <div class="info">
-            <h3>Mon Adresse</h3>
-            <p>{{ personal_info.location }}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 mt-4 mt-md-0 d-flex align-items-stretch">
-        <div class="info-box">
-          <i class="fa-solid fa-heart"></i>
-          <div class="info">
-            <h3>Réseaux Sociaux</h3>
-            <div class="social-links">
-              <a
-                href="{{ personal_info.github }}"
-                class="facebook"
-                target="_blank"
-                ><i class="fa-brands fa-github"></i
-              ></a>
-              <a
-                href="{{ personal_info.linkedin }}"
-                class="linkedin"
-                target="_blank"
-                ><i class="fa-brands fa-linkedin"></i
-              ></a>
+
+    <div class="contact-content">
+      <div class="row">
+        <!-- Contact Info -->
+        <div class="col-lg-4" data-aos="fade-right" data-aos-delay="100">
+          <div class="contact-info">
+            <h3 class="contact-title">Informations de contact</h3>
+            <p class="contact-description">
+              N'hésitez pas à me contacter pour discuter de vos projets ou simplement dire bonjour !
+            </p>
+
+            <div class="contact-items">
+              {% for personal_info in personal %}
+              <div class="contact-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="contact-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Adresse</h4>
+                  <p>{{ personal_info.location }}</p>
+                </div>
+              </div>
+
+              <div class="contact-item" data-aos="fade-up" data-aos-delay="300">
+                <div class="contact-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Email</h4>
+                  <p>
+                    <a href="mailto:{{ personal_info.email }}">{{ personal_info.email }}</a>
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-item" data-aos="fade-up" data-aos-delay="400">
+                <div class="contact-icon">
+                  <i class="fas fa-phone"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Téléphone</h4>
+                  <p>
+                    <a href="tel:{{ personal_info.phone }}">{{ personal_info.phone }}</a>
+                  </p>
+                </div>
+              </div>
+              {% endfor %}
+
+              <div class="contact-item" data-aos="fade-up" data-aos-delay="500">
+                <div class="contact-icon">
+                  <i class="fas fa-share-alt"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Réseaux sociaux</h4>
+                  <div class="social-links">
+                    {% for personal_info in personal %}
+                    <a href="{{ personal_info.github }}" target="_blank" class="social-link">
+                      <i class="fab fa-github"></i>
+                    </a>
+                    <a href="{{ personal_info.linkedin }}" target="_blank" class="social-link">
+                      <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:{{ personal_info.email }}" class="social-link">
+                      <i class="fas fa-envelope"></i>
+                    </a>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-6 mt-4 d-flex align-items-stretch">
-        <div class="info-box">
-          <i class="fa-regular fa-envelope"></i>
-          <div class="info">
-            <h3>Adresse mail</h3>
-            <p>{{ personal_info.email }}</p>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-      <div class="col-md-6 mt-4 d-flex align-items-stretch">
-        <div class="info-box">
-          <i class="fa-solid fa-comment"></i>
-          <div class="info">
-            <h3>Restez en contact</h3>
-            <p>
-              Restez connecté avec moi sur les réseaux sociaux pour les dernières
-              mises à jour.
+
+        <!-- Contact Form -->
+        <div class="col-lg-8" data-aos="fade-left" data-aos-delay="200">
+          <div class="contact-form-container">
+            <h3 class="form-title">Envoyez-moi un message</h3>
+            <p class="form-description">
+              Remplissez le formulaire ci-dessous et je vous répondrai dans les plus brefs délais.
             </p>
+
+            <form id="contactme_form" method="post" action="{% url 'home' %}" class="contact-form">
+              {% csrf_token %}
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="{{ contact_form.your_name.id_for_label }}" class="form-label">
+                    <i class="fas fa-user"></i>
+                    Nom complet
+                  </label>
+                  {{ contact_form.your_name }}
+                  <div class="form-error" id="error-{{ contact_form.your_name.name }}"></div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="{{ contact_form.your_email.id_for_label }}" class="form-label">
+                    <i class="fas fa-envelope"></i>
+                    Adresse email
+                  </label>
+                  {{ contact_form.your_email }}
+                  <div class="form-error" id="error-{{ contact_form.your_email.name }}"></div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="{{ contact_form.subject.id_for_label }}" class="form-label">
+                  <i class="fas fa-tag"></i>
+                  Sujet
+                </label>
+                {{ contact_form.subject }}
+                <div class="form-error" id="error-{{ contact_form.subject.name }}"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="{{ contact_form.message.id_for_label }}" class="form-label">
+                  <i class="fas fa-comment"></i>
+                  Message
+                </label>
+                {{ contact_form.message }}
+                <div class="form-error" id="error-{{ contact_form.message.name }}"></div>
+              </div>
+
+              <div class="form-group captcha-field">
+                <label class="form-label">
+                  <i class="fas fa-shield-alt"></i>
+                  Vérification
+                </label>
+                {{ contact_form.captcha }}
+                <div class="form-error" id="error-{{ contact_form.captcha.name }}"></div>
+              </div>
+
+              <div class="form-messages">
+                <div class="loading-message">
+                  <div class="loading-spinner"></div>
+                  <span>Envoi en cours...</span>
+                </div>
+                <div class="error-message">
+                  <i class="fas fa-exclamation-circle"></i>
+                  <span>Une erreur est survenue. Veuillez réessayer.</span>
+                </div>
+                <div class="success-message">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Votre message a été envoyé avec succès !</span>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" id="recaptcha-submit" class="btn btn-primary btn-lg" disabled>
+                  <i class="fas fa-paper-plane"></i>
+                  Envoyer le message
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
-    <form id="contactme_form" method="post" action="{% url 'home' %}" class="php-email-form mt-4">
-      {% csrf_token %}
-      <div class="row">
-        <div class="col-md-6 form-group">
-          {{ contact_form.your_name }}
-        </div>
-        <div class="col-md-6 form-group mt-3 mt-md-0">
-          {{ contact_form.your_email }}
-        </div>
-      </div>
-      <div class="form-group mt-3">
-        {{ contact_form.subject }}
-      </div>
-      <div class="form-group mt-3">
-        {{ contact_form.message }}
-      </div>
-      <div class="my-3">
-        <div class="loading">Chargement</div>
-        <div class="error-message"></div>
-          <div class="sent-message">
-               Votre message a bien été envoyer. Merci à vous!
-          </div>
-      </div>
-      <div class="form-group mt-3 captcha-field">
-        {{ contact_form.captcha }}
-      </div>
-      <div class="text-center">
-        <button type="submit" id="recaptcha-submit" class="submit-button" disabled>Envoyer le Message?</button>
-      </div>
-    </form>
   </div>
 </section>
+
+<style>
+/* ========================================
+   CONTACT SECTION STYLES
+   ======================================== */
+.contact-section {
+  padding: 8rem 0;
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(6, 182, 212, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.contact-content {
+  position: relative;
+  z-index: 2;
+}
+
+.contact-info {
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-xl);
+  padding: 3rem;
+  height: 100%;
+}
+
+.contact-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.contact-description {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.contact-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--border-radius-lg);
+  transition: all var(--transition-normal);
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.contact-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(10px);
+}
+
+.contact-icon {
+  width: 50px;
+  height: 50px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-glow);
+}
+
+.contact-details {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.contact-details h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.contact-details p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.contact-details a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color var(--transition-normal);
+}
+
+.contact-details a:hover {
+  color: var(--secondary-color);
+}
+
+.social-links {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all var(--transition-normal);
+  font-size: 1.125rem;
+  flex-shrink: 0;
+  min-width: 40px;
+}
+
+.social-link:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-glow);
+}
+
+.contact-form-container {
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-xl);
+  padding: 3rem;
+}
+
+.form-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.form-description {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-label i {
+  color: var(--primary-color);
+  width: 16px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-lg);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all var(--transition-normal);
+  font-family: var(--font-primary);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.captcha-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form-error {
+  color: var(--danger-color);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: none;
+}
+
+.form-error.show {
+  display: block;
+}
+
+.form-messages {
+  position: relative;
+  min-height: 50px;
+}
+
+.loading-message,
+.error-message,
+.success-message {
+  display: none;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius-lg);
+  font-weight: 500;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.loading-message {
+  background: rgba(6, 182, 212, 0.1);
+  color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+}
+
+.error-message {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger-color);
+  border: 1px solid var(--danger-color);
+}
+
+.success-message {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success-color);
+  border: 1px solid var(--success-color);
+}
+
+.loading-message.show,
+.error-message.show,
+.success-message.show {
+  display: flex;
+}
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(6, 182, 212, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--secondary-color);
+  animation: spin 1s linear infinite;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn:disabled:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 768px) {
+  .contact-section {
+    padding: 6rem 0;
+  }
+  
+  .contact-info,
+  .contact-form-container {
+    padding: 2rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .contact-item {
+    padding: 1rem;
+  }
+  
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .social-links {
+    gap: 0.75rem;
+  }
+  
+  .social-link {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-info,
+  .contact-form-container {
+    padding: 1.5rem;
+  }
+  
+  .contact-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+  
+  .contact-item:hover {
+    transform: translateY(-5px);
+  }
+}
+</style>

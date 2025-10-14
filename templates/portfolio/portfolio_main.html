@@ -1,22 +1,1353 @@
 {% extends "layouts/base.html" %}
+{% load static %}
+{% load portfolio_extras %}
+
 {% block content %}
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NP972344"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+
 <!-- ======= Header ======= -->
 {% include 'layouts/header.html' %}
-<!-- End Header -->
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="hero-section">
+    <div class="hero-background">
+        <div class="particles-container" id="particles-js"></div>
+        <div class="gradient-overlay"></div>
+    </div>
+    
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-code"></i>
+                        <span>Développeur Full-Stack</span>
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        <span class="text-gradient">Donaldo</span>
+                        <span class="text-gradient">ZOUBERY</span>
+                    </h1>
+                    
+                    <div class="hero-subtitle">
+                        <span class="typing-text" data-strings='["Développeur Full-Stack", "Expert DevOps", "Architecte Solutions", "Passionné Innovation"]'></span>
+                    </div>
+                    
+                    <p class="hero-description">
+                        Je crée des expériences digitales exceptionnelles en combinant créativité et expertise technique. 
+                        Spécialisé dans le développement web moderne, les solutions cloud et l'architecture de systèmes robustes.
+                        Basé à Diégo-Suarez, Madagascar, je transforme vos idées en solutions technologiques innovantes.
+                    </p>
+                    
+               
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="{{ total_projects }}">0</div>
+                            <div class="stat-label">Projets</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="{{ total_experience }}">0</div>
+                            <div class="stat-label">Années d'expérience</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="{{ total_technologies }}">0</div>
+                            <div class="stat-label">Technologies</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
+                <div class="hero-image">
+                    <div class="image-container">
+                        {% for personal_info in personal %}
+                        {% if personal_info.photo %}
+                        <img src="{{ personal_info.photo.url }}" alt="Donaldo ZOUBERY" class="profile-image">
+                        {% else %}
+                        <div class="profile-placeholder">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        <div class="floating-elements">
+                            <div class="floating-icon" style="--delay: 0s;">
+                                <i class="fab fa-python"></i>
+                            </div>
+                            <div class="floating-icon" style="--delay: 1s;">
+                                <i class="fab fa-js"></i>
+                            </div>
+                            <div class="floating-icon" style="--delay: 2s;">
+                                <i class="fab fa-react"></i>
+                            </div>
+                            <div class="floating-icon" style="--delay: 3s;">
+                                <i class="fab fa-docker"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ======= About Section ======= -->
 {% include 'portfolio/about.html' %}
-<!-- End About Section -->
+
+<!-- ======= Skills Section ======= -->
+<section id="skills" class="skills-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">Compétences Techniques</h2>
+            <p class="section-subtitle">Technologies que je maîtrise</p>
+        </div>
+        
+        <div class="skills-content">
+            <div class="row">
+                {% for tech in technologies %}
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="{{ tech.icon }}"></i>
+                        </div>
+                        <h4 class="skill-name">{{ tech.name }}</h4>
+                        <div class="skill-level">
+                            <div class="skill-progress">
+                                <div class="skill-bar" data-width="{{ tech.skill_level }}%"></div>
+                            </div>
+                            <span class="skill-percentage">{{ tech.skill_level }}%</span>
+                        </div>
+                        <div class="skill-category">{{ tech.get_category_display }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ======= Portfolio Section ======= -->
-{% include 'portfolio/portfolio.html' %}
-<!-- End Portfolio Section -->
+<section id="portfolio" class="portfolio-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">Portfolio</h2>
+            <p class="section-subtitle">Mes réalisations les plus marquantes</p>
+        </div>
+        
+      
+        <div class="row portfolio-grid" data-aos="fade-up" data-aos-delay="200">
+            {% for project in featured_projects %}
+            <div class="col-lg-4 col-md-6 mb-4  portfolio-item {{ project.category }} {{ project.status }}">
+                <div class="project-card">
+                    <div class="project-image">
+                        {% if project.featured_image %}
+                        <img src="{{ project.featured_image.url }}" alt="{{ project.name }}" class="project-img">
+                        {% else %}
+                        <div class="project-placeholder">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        {% endif %}
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                {% if project.github_url %}
+                                <a href="{{ project.github_url }}" target="_blank" class="project-link" title="Code source">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                {% endif %}
+                                {% if project.live_url %}
+                                <a href="{{ project.live_url }}" target="_blank" class="project-link" title="Voir le projet">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                {% endif %}
+                                <a href="#" class="project-link project-preview" title="Aperçu" data-project="{{ project.id }}">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-badge">
+                            <span class="badge badge-{{ project.status }}">{{ project.get_status_display }}</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h4 class="project-title">{{ project.name }}</h4>
+                        <p class="project-description">{{ project.short_description }}</p>
+                        <div class="project-tech">
+                            {% for tech in project.technologies.all %}
+                            <span class="tech-tag">{{ tech.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{% url 'project_list' %}" class="btn btn-outline-primary btn-lg">
+                Voir tous les projets
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ======= Certifications Section ======= -->
+<section id="certifications" class="certifications-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">Certifications</h2>
+            <p class="section-subtitle">Mes certifications et qualifications professionnelles</p>
+        </div>
+        
+        <div class="row">
+            {% for cert in certifications %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="certification-card">
+                    <div class="cert-image">
+                        {% if cert.image %}
+                        <img src="{{ cert.image.url }}" alt="{{ cert.title }}" class="cert-img">
+                        {% else %}
+                        <div class="cert-placeholder">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        {% endif %}
+                        <div class="cert-badge">
+                            <span class="badge badge-{{ cert.status|lower }}">{{ cert.status }}</span>
+                        </div>
+                    </div>
+                    <div class="cert-content">
+                        <h4 class="cert-title">{{ cert.title }}</h4>
+                        <p class="cert-organization">{{ cert.issuing_organization }}</p>
+                        <div class="cert-dates">
+                            <span class="cert-date">
+                                <i class="fas fa-calendar-alt"></i>
+                                {{ cert.issue_date|date:"M Y" }}
+                            </span>
+                            {% if cert.expiry_date %}
+                            <span class="cert-expiry">
+                                <i class="fas fa-clock"></i>
+                                Expire: {{ cert.expiry_date|date:"M Y" }}
+                            </span>
+                            {% endif %}
+                        </div>
+                        {% if cert.description %}
+                        <p class="cert-description">{{ cert.description|truncatewords:15 }}</p>
+                        {% endif %}
+                        <div class="cert-skills">
+                            {% for skill in cert.skills.all %}
+                            <span class="skill-tag">{{ skill.name }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="cert-links">
+                            {% if cert.credential_url %}
+                            <a href="{{ cert.credential_url }}" target="_blank" class="cert-link" title="Voir le certificat">
+                                <i class="fas fa-external-link-alt"></i>
+                                Vérifier
+                            </a>
+                            {% endif %}
+                            {% if cert.credential_id %}
+                            <span class="cert-id">ID: {{ cert.credential_id }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <div class="no-certifications">
+                    <i class="fas fa-certificate"></i>
+                    <h4>Aucune certification disponible</h4>
+                    <p>Les certifications seront bientôt ajoutées</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if certifications %}
+        <div class="text-center mt-5">
+            <a href="{% url 'certification_list' %}" class="btn btn-outline-primary btn-lg">
+                Voir toutes les certifications
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- ======= Blog Section (Hidden for SEO) ======= -->
+<section id="blog" class="blog-section seo-only" style="display: none;">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Articles de Blog</h2>
+            <p class="section-subtitle">Mes dernières réflexions sur le développement</p>
+        </div>
+        
+        <div class="row">
+            {% for post in blog_posts %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <article class="blog-card">
+                    <div class="blog-image">
+                        {% if post.featured_image %}
+                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                        {% else %}
+                        <div class="blog-placeholder">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        {% endif %}
+                        <div class="blog-date">
+                            <span class="day">{{ post.created_at|date:"d" }}</span>
+                            <span class="month">{{ post.created_at|date:"M" }}</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-author">{{ post.author }}</span>
+                            <span class="blog-views">{{ post.view_count }} vues</span>
+                        </div>
+                        <h4 class="blog-title">{{ post.title }}</h4>
+                        <p class="blog-excerpt">{{ post.excerpt }}</p>
+                        <div class="blog-tags">
+                            {% for tag in post.tags|split:"," %}
+                            <span class="tag">{{ tag|strip }}</span>
+                            {% endfor %}
+                        </div>
+                        <a href="{% url 'blog_detail' post.slug %}" class="blog-link">
+                            Lire la suite <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{% url 'blog_list' %}" class="btn btn-outline-primary btn-lg">
+                Voir tous les articles
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ======= Testimonials Section ======= -->
+{% if testimonials %}
+<section id="testimonials" class="testimonials-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">Témoignages Clients</h2>
+            <p class="section-subtitle">Ce que disent mes clients</p>
+        </div>
+        
+        <div class="testimonials-slider">
+            {% for testimonial in testimonials %}
+            <div class="testimonial-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="testimonial-content">
+                    <div class="testimonial-rating">
+                        {% for i in "12345"|make_list %}
+                        <i class="fas fa-star{% if forloop.counter <= testimonial.rating %}{% else %}-o{% endif %}"></i>
+                        {% endfor %}
+                    </div>
+                    <p class="testimonial-text">"{{ testimonial.content }}"</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            {% if testimonial.photo %}
+                            <img src="{{ testimonial.photo.url }}" alt="{{ testimonial.client_name }}">
+                            {% else %}
+                            <div class="author-initials">{{ testimonial.client_name|first }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="author-info">
+                            <h5 class="author-name">{{ testimonial.client_name }}</h5>
+                            <p class="author-position">{{ testimonial.client_position }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
 <!-- ======= Contact Section ======= -->
 {% include 'portfolio/contactme.html' %}
-<!-- End Contact Section -->
-<!-- ======= Footer Section ======= -->
-{% include 'layouts/footer.html' %}
-<!-- End Footer Section -->
+
+<!-- ======= Back to Top ======= -->
+<a href="#" class="back-to-top" id="back-to-top">
+    <i class="fas fa-chevron-up"></i>
+</a>
+
+<style>
+/* ========================================
+   HERO SECTION OPTIMISÉE
+   ======================================== */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 2rem 0;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 25px;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #6366f1, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  min-height: 2rem;
+}
+
+.typing-text {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  max-width: 500px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+}
+
+.hero-image {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-image {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid rgba(99, 102, 241, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.floating-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.floating-icon {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  animation: float 6s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+.floating-icon:nth-child(1) { top: 10%; right: 10%; }
+.floating-icon:nth-child(2) { top: 20%; left: 10%; }
+.floating-icon:nth-child(3) { bottom: 20%; right: 20%; }
+.floating-icon:nth-child(4) { bottom: 10%; left: 20%; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+/* ========================================
+   SECTIONS GÉNÉRALES
+   ======================================== */
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ========================================
+   SKILLS SECTION
+   ======================================== */
+.skills-section {
+  padding: 5rem 0;
+  background: var(--bg-secondary);
+}
+
+.skill-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.skill-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-color);
+}
+
+.skill-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.skill-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.skill-level {
+  margin-bottom: 1rem;
+}
+
+.skill-progress {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.skill-bar {
+  height: 100%;
+  background: var(--gradient-primary);
+  border-radius: 4px;
+  transition: width 1s ease;
+  width: 0%;
+}
+
+.skill-percentage {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.skill-category {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ========================================
+   PORTFOLIO SECTION
+   ======================================== */
+.portfolio-section {
+  padding: 5rem 0;
+  background: var(--bg-primary);
+}
+
+.portfolio-filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 25px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.project-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.project-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.1);
+}
+
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+.project-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.project-link {
+  width: 50px;
+  height: 50px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.project-link:hover {
+  background: var(--primary-dark);
+  transform: scale(1.1);
+}
+
+.project-content {
+  padding: 1.5rem;
+}
+
+.project-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.project-description {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tech-tag {
+  padding: 0.25rem 0.75rem;
+  background: var(--bg-tertiary);
+  border-radius: 15px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.project-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status-completed {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+
+.status-in_progress {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
+/* ========================================
+   BLOG SECTION
+   ======================================== */
+.blog-section {
+  padding: 5rem 0;
+  background: var(--bg-secondary);
+}
+
+.blog-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.blog-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.blog-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.blog-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.blog-date {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--primary-color);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 8px;
+  text-align: center;
+  min-width: 50px;
+}
+
+.blog-date .day {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.blog-date .month {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.blog-content {
+  padding: 1.5rem;
+}
+
+.blog-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.blog-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.blog-excerpt {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.blog-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  padding: 0.25rem 0.75rem;
+  background: var(--bg-tertiary);
+  border-radius: 15px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.blog-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.blog-link:hover {
+  color: var(--primary-dark);
+}
+
+/* ========================================
+   TESTIMONIALS SECTION
+   ======================================== */
+.testimonials-section {
+  padding: 5rem 0;
+  background: var(--bg-primary);
+}
+
+.testimonials-slider {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.testimonial-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.testimonial-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-rating {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-rating i {
+  color: #fbbf24;
+  font-size: 1.2rem;
+}
+
+.testimonial-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.author-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.author-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.author-initials {
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.author-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.author-position {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .hero-stats {
+    gap: 1.5rem;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .profile-image {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .floating-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .testimonials-slider {
+    grid-template-columns: 1fr;
+  }
+  
+  .testimonial-author {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-actions {
+    width: 100%;
+  }
+  
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .hero-stats {
+    justify-content: center;
+  }
+  
+  .profile-image {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .floating-icon {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  
+  .skill-card,
+  .project-card,
+  .blog-card,
+  .testimonial-item {
+    margin-bottom: 1rem;
+  }
+}
+
+/* ========================================
+   BACK TO TOP
+   ======================================== */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  background: var(--primary-dark);
+  transform: translateY(-5px);
+}
+</style>
+
+<script>
+// Animation des barres de compétence
+document.addEventListener('DOMContentLoaded', function() {
+  const skillBars = document.querySelectorAll('.skill-bar');
+  
+  const animateSkillBars = () => {
+    skillBars.forEach(bar => {
+      const width = bar.getAttribute('data-width');
+      bar.style.width = width + '%';
+    });
+  };
+  
+  // Observer pour déclencher l'animation quand la section est visible
+  const skillsSection = document.querySelector('.skills-section');
+  if (skillsSection) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateSkillBars();
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+    observer.observe(skillsSection);
+  }
+});
+
+// Filtres du portfolio
+document.addEventListener('DOMContentLoaded', function() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const portfolioItems = document.querySelectorAll('.portfolio-item');
+  
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Retirer la classe active de tous les boutons
+      filterBtns.forEach(b => b.classList.remove('active'));
+      // Ajouter la classe active au bouton cliqué
+      btn.classList.add('active');
+      
+      const filter = btn.getAttribute('data-filter');
+      
+      portfolioItems.forEach(item => {
+        if (filter === '*' || item.classList.contains(filter.replace('.', ''))) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+});
+
+// Back to top
+document.addEventListener('DOMContentLoaded', function() {
+  const backToTop = document.getElementById('back-to-top');
+  
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+      backToTop.classList.add('show');
+    } else {
+      backToTop.classList.remove('show');
+    }
+  });
+  
+  backToTop.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+});
+
+// Filtres de portfolio
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Retirer la classe active de tous les boutons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Ajouter la classe active au bouton cliqué
+            this.classList.add('active');
+            
+            const filterValue = this.getAttribute('data-filter');
+            
+            portfolioItems.forEach(item => {
+                if (filterValue === '*' || item.classList.contains(filterValue)) {
+                    item.style.display = 'block';
+                    item.style.animation = 'fadeInUp 0.5s ease';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+});
+
+// Fonction pour scroll vers la section contact
+function scrollToContact() {
+    console.log('scrollToContact appelé !');
+    const contactSection = document.getElementById('contact');
+    console.log('Section contact trouvée:', contactSection);
+    
+    if (contactSection) {
+        // Scroll fluide vers la section contact
+        contactSection.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+        
+        // Ajouter un effet visuel
+        contactSection.style.border = '2px solid var(--primary-color)';
+        contactSection.style.boxShadow = '0 0 20px rgba(99, 102, 241, 0.3)';
+        
+        // Retirer l'effet après 3 secondes
+        setTimeout(() => {
+            contactSection.style.border = '';
+            contactSection.style.boxShadow = '';
+        }, 3000);
+    } else {
+        // Si pas de section contact, aller à la fin de la page
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+        });
+    }
+}
+
+// Fonction pour ouvrir le CV digital
+function openCV() {
+    console.log('openCV appelé !');
+    // Ouvrir le CV dans un nouvel onglet
+    const cvWindow = window.open('{% url "digital_cv" %}', '_blank');
+    
+    // Vérifier si la fenêtre s'est ouverte
+    if (cvWindow) {
+        // Message de confirmation
+        setTimeout(() => {
+            alert('CV digital ouvert dans un nouvel onglet !');
+        }, 500);
+    } else {
+        // Si popup bloqué, rediriger dans le même onglet
+        alert('Popup bloqué. Redirection vers le CV...');
+        window.location.href = '{% url "digital_cv" %}';
+    }
+}
+
+// Debug: Vérifier que les fonctions sont bien définies
+console.log('Fonctions définies:', {
+    scrollToContact: typeof scrollToContact,
+    openCV: typeof openCV
+});
+
+// Alternative: Utiliser addEventListener au lieu d'onclick
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM chargé, ajout des événements...');
+    
+    // Bouton Me contacter
+    const contactBtn = document.querySelector('a[href="#contact"]');
+    if (contactBtn) {
+        console.log('Bouton contact trouvé:', contactBtn);
+        contactBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Clic sur bouton contact détecté !');
+            scrollToContact();
+        });
+    } else {
+        console.log('Bouton contact non trouvé !');
+    }
+    
+    // Bouton Télécharger CV
+    const cvBtn = document.querySelector('a[href*="digital_cv"]');
+    if (cvBtn) {
+        console.log('Bouton CV trouvé:', cvBtn);
+        cvBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Clic sur bouton CV détecté !');
+            openCV();
+        });
+    } else {
+        console.log('Bouton CV non trouvé !');
+    }
+});
+
+</script>
+
 {% endblock content %}

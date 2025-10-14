@@ -25,7 +25,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta name="author" content="ZOUBERY Jaotiana Donaldo" />
 
     <!-- Favicons -->
-    <link href="{% static 'assets/img/favicon.ico' %}" rel="icon"/>
+    <link href="{% static 'assets/img/favicon.png' %}" rel="icon"/>
     <link href="{% static 'assets/img/apple-touch-icon.ico' %}" rel="apple-touch-icon" />
 
     <!--========== BOX ICONS ==========-->
@@ -95,8 +95,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <h3 class="home__profession">{{ personal_info.role }}</h3>
                             <!-- View CV -->
                             <div>
-                                <a href="{{ personal_info.cv_link }}" target="_blank"
-                                    class="home__button-movil">Download</a>
+                                <a href="{% url 'download_cv_pdf' %}" target="_blank"
+                                    class="home__button-movil">Download PDF</a>
                             </div>
                         </div>
                         <div class="home__address bd-grid">
@@ -114,7 +114,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <!-- Theme change button -->
                     <i class="bx bx-moon change-theme" title="Theme" id="theme-button"></i>
                     <a title="Download PDF" class="bx bx-download generate-pdf"
-                        href="{{ personal_info.cv_link }}" target="_blank"></a>
+                        href="{% url 'download_cv_pdf' %}" target="_blank"></a>
                 </section>
                 <!--========== SOCIAL ==========-->
                 <section class="social section">
@@ -266,7 +266,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </section>
             </div>
         </div>
-        <p class="updated">Mise à jour: Janv 2, 2025</p>
+        <p class="updated">Mise à jour: oct 13, 2025</p>
     </main>
     <!--========== SCROLL TOP ==========-->
     <a href="#" class="scrolltop" id="scroll-top">

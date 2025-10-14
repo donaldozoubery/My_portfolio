@@ -18,12 +18,41 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from django.http import HttpResponse
+import os
 
+def robots_txt(request):
+    robots_path = os.path.join(settings.STATIC_ROOT or settings.STATICFILES_DIRS[0], 'robots.txt')
+    try:
+        with open(robots_path, 'r') as f:
+            content = f.read()
+    except FileNotFoundError:
+        content = "User-agent: *\nAllow: /\nSitemap: https://donaldozoubery.com/sitemap.xml"
+    return HttpResponse(content, content_type='text/plain')
+
+def sitemap_xml(request):
+    sitemap_path = os.path.join(settings.STATIC_ROOT or settings.STATICFILES_DIRS[0], 'sitemap.xml')
+    try:
+        with open(sitemap_path, 'r') as f:
+            content = f.read()
+    except FileNotFoundError:
+        content = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://donaldozoubery.com/</loc>
+        <lastmod>2025-01-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+</urlset>"""
+    return HttpResponse(content, content_type='application/xml')
 
 urlpatterns = [
     # For Dev only
     path('admin/', admin.site.urls),
     path('', include("apps.portfolio.urls")),
+    path('robots.txt', robots_txt),
+    path('sitemap.xml', sitemap_xml),
 ]
 
 handler404 = "apps.portfolio.views.handle_not_found"
