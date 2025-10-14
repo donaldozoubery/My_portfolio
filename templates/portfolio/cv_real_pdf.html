@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - ZOUBERY Jaotiana Donaldo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff;
+            padding: 0;
+        }
+
+        .container {
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto;
+            background-color: white;
+            display: grid;
+            grid-template-columns: 85mm 1fr;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar {
+            background-color: #fafafa;
+            padding: 15mm;
+            border-right: 0.5px solid #ddd;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            padding: 15mm;
+            overflow-y: auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+        }
+
+        .header h1 {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.2;
+            letter-spacing: 0.5px;
+        }
+
+        .header .subtitle {
+            font-size: 9px;
+            color: #888;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        .header .title {
+            font-size: 10px;
+            color: #666;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            margin-bottom: 12px;
+            font-size: 10px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 6px;
+            color: #555;
+            line-height: 1.3;
+        }
+
+        .contact-item span:first-child {
+            margin-right: 6px;
+            color: #999;
+            flex-shrink: 0;
+            font-size: 9px;
+        }
+
+        /* Section Sidebar */
+        .sidebar-section {
+            margin-bottom: 12px;
+        }
+
+        .sidebar-section h3 {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            color: #333;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .social-links a {
+            font-size: 10px;
+            color: #666;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .social-links a:hover {
+            color: #333;
+        }
+
+        .social-links span:first-child {
+            margin-right: 6px;
+            color: #999;
+            font-size: 9px;
+        }
+
+        /* Profile Text */
+        .profile-text {
+            font-size: 9px;
+            line-height: 1.4;
+            color: #666;
+            text-align: justify;
+            margin-bottom: 8px;
+        }
+
+        /* Education & Skills */
+        .education-item {
+            margin-bottom: 10px;
+            font-size: 10px;
+        }
+
+        .education-item h4 {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 2px;
+            font-size: 10px;
+        }
+
+        .education-item .school {
+            font-size: 9px;
+            color: #888;
+            margin-bottom: 2px;
+            line-height: 1.2;
+        }
+
+        .education-item .date {
+            font-size: 9px;
+            color: #aaa;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 10px;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            font-size: 9px;
+            color: #666;
+        }
+
+        .skill-item:before {
+            content: "•";
+            margin-right: 5px;
+            color: #999;
+        }
+
+        /* Main Content Sections */
+        .content-section {
+            margin-bottom: 15px;
+        }
+
+        .content-section h2 {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 6px;
+            color: #333;
+        }
+
+        /* Experience */
+        .experience-item {
+            margin-bottom: 12px;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 5px;
+            gap: 10px;
+        }
+
+        .experience-header h3 {
+            font-size: 10px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .experience-header .date {
+            font-size: 9px;
+            color: #999;
+            flex-shrink: 0;
+            text-align: right;
+        }
+
+        .experience-company {
+            font-size: 9px;
+            color: #888;
+            margin-bottom: 6px;
+        }
+
+        .experience-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            background-color: #f0f0f0;
+            padding: 3px 7px;
+            border-radius: 2px;
+            font-size: 8px;
+            color: #666;
+        }
+
+        /* Certifications */
+        .cert-item {
+            margin-bottom: 8px;
+            font-size: 10px;
+        }
+
+        .cert-item h4 {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 2px;
+            font-size: 10px;
+        }
+
+        .cert-item .issuer {
+            font-size: 9px;
+            color: #888;
+        }
+
+        /* Interests */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+
+        .interest-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .interest-icon {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .interest-label {
+            font-size: 8px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="header">
+                <h1>ZOUBERY<br>Donaldo</h1>
+                <p class="subtitle">EXPERIENCES</p>
+                <p class="title">Développeur web full-stack & DevOps</p>
+            </div>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span>Soamena, Antananarivo, Madagascar</span>
+                </div>
+                <div class="contact-item">
+                    <span>✉️</span>
+                    <span>srozubery@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span>📱</span>
+                    <span>+261825020514</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>RÉSEAUX SOCIAUX</h3>
+                <div class="social-links">
+                    <a href="#"><span>f</span>@donatoszouberry</a>
+                    <a href="#"><span>🐙</span>@donatoszouberry</a>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>PROFIL</h3>
+                <p class="profile-text">
+                    Dédoué en tant qu'homme de licence, passionné de la programmation et doté d'un sans relations. Je recherche toute opportunité me permettant d'améliorer mes compétences dans l'univers de la technologie.
+                </p>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>ÉDUCATION</h3>
+                <div class="education-item">
+                    <h4>LICENCE</h4>
+                    <div class="school">Conservatoire national Des Arts et des Métiers</div>
+                    <div class="date">03-2025 / 03-2025</div>
+                </div>
+                <div class="education-item">
+                    <h4>DTSLDT52</h4>
+                    <div class="school">Institut Supérieur de Technologie d'Extrême</div>
+                    <div class="date">07-2022 / 07-2024</div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>COMPÉTENCES</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">HTML5</div>
+                    <div class="skill-item">CSS3</div>
+                    <div class="skill-item">Python</div>
+                    <div class="skill-item">Django</div>
+                    <div class="skill-item">JavaScript</div>
+                    <div class="skill-item">Figma</div>
+                    <div class="skill-item">Git</div>
+                    <div class="skill-item">Tailwind CSS</div>
+                    <div class="skill-item">Trello</div>
+                    <div class="skill-item">My SQL</div>
+                    <div class="skill-item">PHP</div>
+                    <div class="skill-item">React</div>
+                    <div class="skill-item">Node.js</div>
+                    <div class="skill-item">PostgreSQL</div>
+                    <div class="skill-item">Docker</div>
+                    <div class="skill-item">Redis</div>
+                    <div class="skill-item">Linux</div>
+                    <div class="skill-item">AWS</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="content-section">
+                <h2>EXPERIENCES</h2>
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <h3>Stage en Développement Web</h3>
+                        <span class="date">Mar 2024 - Déc 2024 | MASA digital</span>
+                    </div>
+                    <div class="experience-company">Technologies utilisées</div>
+                    <div class="experience-tech">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Figma</span>
+                        <span class="tech-tag">Git</span>
+                        <span class="tech-tag">Tailwind CSS</span>
+                        <span class="tech-tag">Trello</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>CERTIFICATIONS</h2>
+                <div class="cert-item">
+                    <h4>Acculturation et orientation dans le numérique (2024)</h4>
+                    <div class="issuer">SATHA</div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>CENTRE D'INTÉRÊT</h2>
+                <div class="interests-grid">
+                    <div class="interest-item">
+                        <div class="interest-icon">🎵</div>
+                        <div class="interest-label">Musique</div>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon">📷</div>
+                        <div class="interest-label">Photo</div>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon">✈️</div>
+                        <div class="interest-label">Voyager</div>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon">📚</div>
+                        <div class="interest-label">Lire</div>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon">⚽</div>
+                        <div class="interest-label">Football</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

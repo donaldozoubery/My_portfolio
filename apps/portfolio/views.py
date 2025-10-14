@@ -277,7 +277,7 @@ def download_cv_pdf(request):
         }
         
         # Rendre le template HTML (optimisé pour A4)
-        html_string = render_to_string('portfolio/cv_digital_perfect_pdf.html', context)
+        html_string = render_to_string('portfolio/cv_real_pdf.html', context)
         
         # Créer le PDF avec xhtml2pdf
         pdf_buffer = BytesIO()

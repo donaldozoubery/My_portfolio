@@ -157,3 +157,19 @@ local_settings.py
 # Temporary files
 *.tmp
 *.temp
+
+# PDF test files
+test_*.pdf
+*.pdf
+
+# Development scripts
+*_demo.py
+*_test.py
+*_check.py
+*_fix.py
+*_assign.py
+*_create.py
+*_add.py
+*_reset.py
+*_verify.py
+*_compare.py
