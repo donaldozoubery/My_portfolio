@@ -191,10 +191,17 @@ cloudinary.config(
     api_secret=os.environ.get("CLOUD_API_SECRET", "")
 )
 
+# DEBUG CKEDITOR
+CKEDITOR_CONFIGS = {
+    'default': {
+        'removePlugins': 'codesnippet',
+    }
+}
+
 # SEO Configuration
 SITE_NAME = "Donaldo ZOUBERY - Portfolio"
 SITE_DESCRIPTION = "Développeur Full-Stack passionné par la création d'expériences digitales exceptionnelles. Expert en Python, Django, React, DevOps et solutions cloud."
-SITE_URL = "https://donaldozoubery.com"
+SITE_URL = "https://zouberyjaotianadonaldo.site"
 
 # Security settings for production
 if not DEBUG:
