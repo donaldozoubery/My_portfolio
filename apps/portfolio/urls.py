@@ -1,14 +1,12 @@
 from django.urls import path
 from .views import (
     HomePageView, DigitalCVPageView, BlogListView, BlogDetailView,
-    ProjectListView, ProjectDetailView, CertificationListView, CertificationDetailView,
-    download_cv_pdf
+    ProjectListView, ProjectDetailView, CertificationListView, CertificationDetailView
 )
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
     path('digital_cv/', DigitalCVPageView.as_view(), name='digital_cv'),
-    path('download-cv/', download_cv_pdf, name='download_cv_pdf'),
     path('blog/', BlogListView.as_view(), name='blog_list'),
     path('blog/<slug:slug>/', BlogDetailView.as_view(), name='blog_detail'),
     path('projects/', ProjectListView.as_view(), name='project_list'),

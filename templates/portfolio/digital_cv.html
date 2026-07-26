@@ -95,8 +95,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <h3 class="home__profession">{{ personal_info.role }}</h3>
                             <!-- View CV -->
                             <div>
-                                <a href="{% url 'download_cv_pdf' %}" target="_blank"
-                                    class="home__button-movil">Download PDF</a>
+                                <span class="home__button-movil" style="opacity: 0.5; cursor: not-allowed;">Download PDF</span>
                             </div>
                         </div>
                         <div class="home__address bd-grid">
@@ -114,7 +113,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <!-- Theme change button -->
                     <i class="bx bx-moon change-theme" title="Theme" id="theme-button"></i>
                     <a title="Download PDF" class="bx bx-download generate-pdf"
-                        href="{% url 'download_cv_pdf' %}" target="_blank"></a>
+                        href="#" target="_blank" style="opacity: 0.5; cursor: not-allowed;"></a>
                 </section>
                 <!--========== SOCIAL ==========-->
                 <section class="social section">

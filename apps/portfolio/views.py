@@ -13,7 +13,6 @@ from django.conf import settings
 from operator import attrgetter
 import os
 import mimetypes
-from xhtml2pdf import pisa
 from io import BytesIO
 from .models import (
     Personal, About, Experience, Description, Education, Technology, Portfolio,
@@ -243,57 +242,5 @@ class CertificationDetailView(DetailView):
     slug_field = 'id'
     slug_url_kwarg = 'id'
 
-def download_cv_pdf(request):
-    """
-    Vue pour générer et télécharger le CV en PDF à partir du template HTML
-    """
-    try:
-        # Récupérer les données nécessaires (exactement comme dans DigitalCVPageView)
-        personal = Personal.objects.all()
-        if not personal.exists():
-            raise Http404("Informations personnelles non trouvées")
-        
-        education = Education.objects.all()
-        experiences = Experience.objects.all()
-        technologies = Technology.objects.all()
-        
-        # Grouper les portfolios par issuer (comme dans le CV digital)
-        from django.db.models import Q
-        portfolios = Portfolio.objects.all()
-        grouped_portfolio = {}
-        for portfolio in portfolios:
-            issuer = portfolio.issuer if portfolio.issuer else "Autre"
-            if issuer not in grouped_portfolio:
-                grouped_portfolio[issuer] = []
-            grouped_portfolio[issuer].append(portfolio)
-        
-        # Contexte pour le template (exactement comme le CV digital)
-        context = {
-            'personal': personal,
-            'education': education,
-            'experiences': experiences,
-            'technologies': technologies,
-            'grouped_portfolio': grouped_portfolio,
-        }
-        
-        # Rendre le template HTML (optimisé pour A4)
-        html_string = render_to_string('portfolio/cv_real_pdf.html', context)
-        
-        # Créer le PDF avec xhtml2pdf
-        pdf_buffer = BytesIO()
-        pisa_status = pisa.CreatePDF(html_string, dest=pdf_buffer)
-        pdf_buffer.seek(0)
-        
-        if pisa_status.err:
-            raise Exception("Erreur lors de la génération PDF")
-        
-        # Créer la réponse HTTP
-        response = HttpResponse(pdf_buffer.getvalue(), content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="Donaldo_ZOUBERY_CV.pdf"'
-        response['Content-Length'] = len(pdf_buffer.getvalue())
-        
-        return response
-        
-    except Exception as e:
-        raise Http404(f"Erreur lors de la génération du PDF: {str(e)}")
+
     
