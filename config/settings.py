@@ -36,6 +36,7 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(" ")
 # Security settings for production / proxies like Vercel
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = False
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'DENY'
