@@ -139,7 +139,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
                 <div class="skill-card">
                     <div class="skill-icon">
+                        {% if tech.photo %}
                         <img src="{{ tech.photo }}" alt="{{ tech.name }}" class="skill-image">
+                        {% else %}
+                        <i class="{{ tech.icon }}"></i>
+                        {% endif %}
                     </div>
                     <h4 class="skill-name">{{ tech.name }}</h4>
                     <div class="skill-progress">
