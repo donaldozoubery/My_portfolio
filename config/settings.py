@@ -115,10 +115,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
 
+
 # Exclure
-STATICFILES_IGNORE_PATTERNS = [
-    "ckeditor/*",
-]
+
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 DATABASES = {
@@ -171,9 +170,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]   
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+    str(BASE_DIR / 'static'),
+    str(BASE_DIR / 'static_test'),
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
