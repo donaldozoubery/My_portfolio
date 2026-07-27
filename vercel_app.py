@@ -11,6 +11,13 @@ STATIC_DIR = Path(settings.BASE_DIR) / 'static'
 MEDIA_DIR = Path(settings.BASE_DIR) / 'media'
 
 
+FAVICON_PATHS = [
+    Path(settings.BASE_DIR) / 'static' / 'assets' / 'img' / 'favicon.ico',
+    STATIC_DIR / 'favicon.ico',
+    Path(settings.BASE_DIR) / 'favicon.ico',
+]
+
+
 class StaticFileMiddleware:
     def __init__(self, app):
         self.app = app
@@ -27,6 +34,11 @@ class StaticFileMiddleware:
             file_path = MEDIA_DIR / path_info[len('/media/'):]
             if file_path.exists() and file_path.is_file():
                 return FileResponse(open(file_path, 'rb'))(environ, start_response)
+
+        if path_info == '/favicon.ico':
+            for favicon_path in FAVICON_PATHS:
+                if favicon_path.exists() and favicon_path.is_file():
+                    return FileResponse(open(favicon_path, 'rb'))(environ, start_response)
 
         return self.app(environ, start_response)
 
