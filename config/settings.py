@@ -33,7 +33,14 @@ DEBUG = os.environ.get("DEBUG", "True").lower() == "true"
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(" ")
 
-# Application definition
+# Security settings for production / proxies like Vercel
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.admin',
@@ -205,13 +212,6 @@ SITE_DESCRIPTION = "Développeur Full-Stack passionné par la création d'expér
 SITE_URL = "https://zouberyjaotianadonaldo.site"
 
 # Security settings for production
-if not DEBUG:
-    SECURE_BROWSER_XSS_FILTER = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    X_FRAME_OPTIONS = 'DENY'
-    SECURE_HSTS_SECONDS = 31536000
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
 
 # Configuration WeasyPrint pour la génération PDF
 WEASYPRINT_BASEURL = 'http://127.0.0.1:8000'  # URL de base pour les ressources statiques
