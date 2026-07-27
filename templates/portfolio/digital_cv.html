@@ -121,7 +121,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                     <div class="social__container bd-grid">
                         <a href="https://www.zouberyjaotianadonaldo.site" target="_blank" class="social__link">
-                            <i class='bx bx-globe social__icon'></i> zouberyjaotianadonaldo.site
+                            <i class='bx bx-globe social__icon'></i> www.zouberyjaotianadonaldo.site
                         </a>
 
                         <a href="{{ personal_info.linkedin }}" target="_blank" class="social__link">
@@ -137,10 +137,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <section class="profile section" id="profile">
                     <h2 class="section-title">Profil</h2>
                     <p class="profile__description">
-                        {{ personal_info.cv_description }}
+                        Informaticien polyvalent et passionné par les nouvelles technologies. Je recherche une opportunité me permettant de mettre mes compétences techniques au service d’une entreprise et de développer davantage mon expérience professionnelle.
                     </p>
                 </section>
                 {% endfor %}
+                <!--========== SKILLS  ==========-->
+                <section class="skills section hide" id="skills">
+                    <h2 class="section-title">Compétences</h2>
+
+                    <div class="skills__content bd-grid">
+                        {% for technologies_skills in technologies %}
+                        <div class="skills__name">
+                            <span class="skills__circle"></span> {{ technologies_skills.name }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <a href="#" class="skills-button" id="skills-button">Voir plus</a>
+                </section>
+            </div>
+            <div class="resume__right">
+                
                 <!--========== EDUCATION ==========-->
                 <section class="education section" id="education">
                     <h2 class="section-title">Education</h2>
@@ -168,21 +184,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <br>
                     {% endfor %}
                 </section>
-                <!--========== SKILLS  ==========-->
-                <section class="skills section hide" id="skills">
-                    <h2 class="section-title">Compétences</h2>
-
-                    <div class="skills__content bd-grid">
-                        {% for technologies_skills in technologies %}
-                        <div class="skills__name">
-                            <span class="skills__circle"></span> {{ technologies_skills.name }}
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <a href="#" class="skills-button" id="skills-button">Voir plus</a>
-                </section>
-            </div>
-            <div class="resume__right">
                 <!--========== EXPERIENCE ==========-->
                 <section class="experience section" id="experience">
                     <h2 class="section-title">Experiences</h2>
@@ -241,32 +242,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         {% endfor %}
                     </div>
                 </section>
-                <!--========== INTERESTS ==========-->
-                <section class="interests section">
-                    <h2 class="section-title">Centre d'interêt</h2>
-                    <div class="interests__container bd-grid">
-                        <div class="interests__content">
-                            <i class="bx bx-headphone interests__icon"></i>
-                            <span class="interests__name">Musique</span>
-                        </div>
-                        <div class="interests__content">
-                            <i class="bx bx-camera interests__icon"></i>
-                            <span class="interests__name">Photo</span>
-                        </div>
-                        <div class="interests__content">
-                            <i class="bx bxs-plane-alt interests__icon"></i>
-                            <span class="interests__name">Voyager</span>
-                        </div>
-                        <div class="interests__content">
-                            <i class="bx bx-book interests__icon"></i>
-                            <span class="interests__name">LIvre</span>
-                        </div>
-                        <div class="interests__content">
-                            <i class='bx bx-football interests__icon'></i>
-                            <span class="interests__name">Football</span>
-                        </div>
-                    </div>
-                </section>
+                
             </div>
         </div>
         <p class="updated">Mise à jour: oct 13, 2025</p>
