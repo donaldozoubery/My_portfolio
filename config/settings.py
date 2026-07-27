@@ -17,11 +17,6 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Cloudinary imports
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -43,7 +38,6 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 INSTALLED_APPS = [
-    'cloudinary_storage',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,7 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.portfolio',
     'ckeditor',
-    'cloudinary',
     'django_recaptcha',
     'whitenoise',
 ]
@@ -74,6 +67,7 @@ CKEDITOR_CONFIGS = {
     'default': {
         'allowedContent': True,
         'extraAllowedContent': 'span[*]',
+        'removePlugins': 'codesnippet',
     }
 }
 
@@ -176,7 +170,6 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -185,26 +178,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ReCaptcha keys
 RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY", "")
 RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY", "")
-
-# Cloudinary keys
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get("CLOUD_NAME", ""),
-    'API_KEY': os.environ.get("CLOUD_API_KEY", ""),
-    'API_SECRET': os.environ.get("CLOUD_API_SECRET", ""),
-}
-
-cloudinary.config(
-    cloud_name=os.environ.get("CLOUD_NAME", ""),
-    api_key=os.environ.get("CLOUD_API_KEY", ""),
-    api_secret=os.environ.get("CLOUD_API_SECRET", "")
-)
-
-# DEBUG CKEDITOR
-CKEDITOR_CONFIGS = {
-    'default': {
-        'removePlugins': 'codesnippet',
-    }
-}
 
 # SEO Configuration
 SITE_NAME = "Donaldo ZOUBERY - Portfolio"
