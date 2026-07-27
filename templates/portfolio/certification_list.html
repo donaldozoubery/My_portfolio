@@ -48,7 +48,7 @@
                 <div class="certification-card">
                     <div class="cert-image">
                         {% if cert.image %}
-                        <img src="{{ cert.image.url }}" alt="{{ cert.title }}" class="cert-img">
+                        <img src="{{ cert.image|media_fallback:'static/images/certifications/image08.png' }}" alt="{{ cert.title }}" class="cert-img">
                         {% else %}
                         <div class="cert-placeholder">
                             <i class="fas fa-certificate"></i>

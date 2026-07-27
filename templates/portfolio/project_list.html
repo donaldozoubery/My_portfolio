@@ -31,7 +31,7 @@
                 <div class="project-card">
                     <div class="project-image">
                         {% if project.featured_image %}
-                        <img src="{{ project.featured_image.url }}" alt="{{ project.name }}" class="project-img" loading="lazy">
+                        <img src="{{ project.featured_image|media_fallback:'static/images/projects/project_1_default.png' }}" alt="{{ project.name }}" class="project-img" loading="lazy">
                         {% else %}
                         <div class="project-placeholder">
                             <i class="fas fa-code"></i>

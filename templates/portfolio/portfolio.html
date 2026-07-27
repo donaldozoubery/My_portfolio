@@ -1,3 +1,6 @@
+{% load static %}
+{% load portfolio_extras %}
+
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NP972344"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -24,11 +27,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="img-wrapper">
               <a
                 data-fancybox
-                data-src="{{ portfolio_items.photo.url }}"
+                data-src="{{ portfolio_items.photo|media_fallback:'static/images/portfolio/project/01_Login.png' }}"
                 data-caption="{{ portfolio_items.name }}"
               >
               <img
-                src="{{ portfolio_items.photo.url }}"
+                src="{{ portfolio_items.photo|media_fallback:'static/images/portfolio/project/01_Login.png' }}"
                 class="img-inner"
                 alt="{{ portfolio_items.name }} Image"
                 loading="lazy"

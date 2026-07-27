@@ -71,7 +71,7 @@
                 <!-- Project Image -->
                 {% if project.featured_image %}
                 <div class="project-image">
-                    <img src="{{ project.featured_image.url }}" alt="{{ project.name }}" class="img-fluid">
+                    <img src="{{ project.featured_image|media_fallback:'static/images/projects/project_1_default.png' }}" alt="{{ project.name }}" class="img-fluid">
                 </div>
                 {% endif %}
 

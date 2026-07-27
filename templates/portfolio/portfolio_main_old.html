@@ -1,5 +1,6 @@
 {% extends "layouts/base.html" %}
 {% load static %}
+{% load portfolio_extras %}
 
 {% block content %}
 <!-- Google Tag Manager (noscript) -->
@@ -85,7 +86,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <div class="image-container">
                         {% for personal_info in personal %}
                         {% if personal_info.photo %}
-                        <img src="{{ personal_info.photo.url }}" alt="Donaldo ZOUBERY" class="profile-image">
+                        <img src="{{ personal_info.photo|media_fallback:'static/images/profile_pics/main/Avatar_Photo-modified.png' }}" alt="Donaldo ZOUBERY" class="profile-image">
                         {% else %}
                         <div class="profile-placeholder">
                             <i class="fas fa-user"></i>
@@ -169,7 +170,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="project-card">
                     <div class="project-image">
                         {% if project.featured_image %}
-                        <img src="{{ project.featured_image.url }}" alt="{{ project.name }}">
+                        <img src="{{ project.featured_image|media_fallback:'static/images/projects/project_1_default.png' }}" alt="{{ project.name }}">
                         {% else %}
                         <div class="project-placeholder">
                             <i class="fas fa-code"></i>
@@ -238,7 +239,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <div class="testimonial-author">
                         <div class="author-image">
                             {% if testimonial.photo %}
-                            <img src="{{ testimonial.photo.url }}" alt="{{ testimonial.client_name }}">
+                            <img src="{{ testimonial.photo|media_fallback:'static/images/profile_pics/main/default_profile.png' }}" alt="{{ testimonial.client_name }}">
                             {% else %}
                             <div class="author-initials">{{ testimonial.client_name|first }}</div>
                             {% endif %}
@@ -271,7 +272,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <article class="blog-card">
                     <div class="blog-image">
                         {% if post.featured_image %}
-                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                        <img src="{{ post.featured_image|media_fallback:'static/images/blog/blog_1_default.png' }}" alt="{{ post.title }}">
                         {% else %}
                         <div class="blog-placeholder">
                             <i class="fas fa-newspaper"></i>

@@ -1,4 +1,5 @@
 <!-- ======= About Section - Roadmap ======= -->
+{% load portfolio_extras %}
 <section id="about" class="about-section roadmap-section">
   <div class="container">
     <div class="section-header text-center" data-aos="fade-up">
@@ -53,7 +54,7 @@
           
           {% if step.image %}
           <div class="roadmap-image">
-            <img src="{{ step.image.url }}" alt="{{ step.title }}" class="img-fluid">
+            <img src="{{ step.image|media_fallback:'static/images/roadmap/image08.png' }}" alt="{{ step.title }}" class="img-fluid">
           </div>
           {% endif %}
         </div>
